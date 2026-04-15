@@ -1,0 +1,111 @@
+RESUMEN — PROYECTO MALABAR VISTA
+Fecha: Abril 2026
+==========================================================================
+
+DESCRIPCIÓN
+-----------
+Casa campestre de lujo en Cerritos Malabar, Pereira. 596m² construidos,
+2.000m² de lote, vista directa al lago. Precio: $6.500.000.000 COP.
+Venta directa por propietario.
+
+Sitio live:  malabar-vista.vercel.app
+Tour 360:    malabar-vista.vercel.app/tour/
+Repo GitHub: github.com/emolina920/malabar-vista
+
+
+==========================================================================
+TOUR VIRTUAL 360°
+==========================================================================
+
+El tour tiene 33 escenas conectadas por hotspots de navegación.
+Archivo principal: tour/index.html
+Fotos 360: carpeta tour/ (35 archivos JPG)
+
+Para editar el tour:
+- Abrir tour/index.html
+- El array ROOMS (~línea 132) contiene todas las escenas
+- Cada hotspot tiene: label, yaw (ángulo 0-360), to (índice destino)
+- Modo calibración: presionar D en el navegador → girar hasta la puerta → anotar el ángulo
+
+ESCENAS CALIBRADAS (todas):
+  Zona Social:       Entrada Principal, Sala·Comedor·Cocina, Sala·Comedor·Cocina Ángulo B,
+                     Comedor, Cocina, Cocina Ángulo B, Sala Social, Sala Social Ángulo B
+  Exteriores:        Jardín/Piscina, Zona BBQ, Terraza Máster, Terraza Piscina
+  Zona Privada:      Corredor Habitaciones, Habitación 2, Closet Hab.2, Baño Hab.2,
+                     Antecámara, Baño Oscuro, Corredor Lateral, Habitación 3
+  Suite Máster:      Suite Máster, Suite Máster Ángulo B, Vestíbulo Máster A,
+                     Vestíbulo Máster B, Closet Máster, Pasillo Closet Máster,
+                     Closet Máster Interior, Baño Máster, Baño Máster·Bañera
+  Zona Servicio:     Cuarto de Servicio, Lavandería, Hab. de Servicio, Corredor Servicio
+
+CAMBIO IMPORTANTE — Vestíbulo Máster:
+  El Vestíbulo Máster A original (IMG_164833) tenía una persona visible en la foto.
+  Se intercambiaron A y B: ahora el Vestíbulo Máster A usa la foto IMG_164905.
+  Todos los links del tour fueron actualizados al nuevo índice (to:31).
+
+Para correr el tour localmente:
+  1. Abrir terminal en la carpeta tour/
+  2. Correr: serve -p 8080
+  3. Abrir: http://localhost:8080
+  (O doble clic en ABRIR-TOUR.bat desde Windows)
+
+
+==========================================================================
+LANDING PAGE
+==========================================================================
+
+Archivo principal: index.html
+Fotos y videos: carpeta fotos/
+
+SECCIONES (en orden):
+  1. Hero          — Video día/noche con toggle, precio, 3 botones CTA
+  2. Specs Bar     — 596m², 2.000m², 3 Suites, 4 Baños, Piscina, 24/7 Seguridad,
+                     Cuarto Servicio + Baño
+  3. Features      — 4 cards: Vista al Lago, Diseño Arquitectónico,
+                     Piscina 2.000m², Atardeceres
+  4. Clima         — Sección "Primavera Eterna" — 22°C todo el año,
+                     explicado para compradores internacionales
+  5. Galería       — 8 fotos + lightbox interactivo
+  6. Tour 360°     — Sección CTA con botón a /tour/
+  7. Stats         — Valorización, aeropuerto, m² de lote, #1 sector
+  8. Ubicación     — Mapa y distancias
+  9. Inversión     — Argumentos para comprador internacional
+  10. CTA Final    — WhatsApp + contacto
+  11. Footer
+
+ARCHIVOS DE FOTOS (todos en minúsculas — importante para Vercel/Linux):
+  fotos/feat-1.jpg       feat-2.jpg       feat-3.jpg       feat-4.jpg
+  fotos/galeria-1.jpg    galeria-2.jpg    galeria-3.jpg    galeria-4.jpg
+  fotos/galeria-5.jpg    galeria-6.jpg    galeria-7.jpg    galeria-8.jpg
+  fotos/hero-dia.mp4     hero-noche.mp4
+
+NOTA: Los archivos deben estar siempre en minúsculas. Vercel corre en Linux
+y distingue mayúsculas de minúsculas. hero-dia.mp4 ≠ Hero-Dia.mp4.
+
+
+==========================================================================
+PUBLICACIÓN Y DEPLOYMENT
+==========================================================================
+
+Plataforma:   Vercel (free tier)
+Repo:         github.com/emolina920/malabar-vista (rama: main)
+URL live:     malabar-vista.vercel.app
+
+Para hacer cambios y publicar:
+  1. Editar los archivos en Desktop/malabar-vista/
+  2. git add .
+  3. git commit -m "descripcion del cambio"
+  4. git push origin main
+  → Vercel detecta el push y republica automáticamente en ~1 minuto
+
+
+==========================================================================
+PENDIENTES FUTUROS
+==========================================================================
+
+  [ ] Dominio propio (ej. malabarvista.com)
+  [ ] Seguir calibrando hotspots del tour si se agregan nuevas fotos
+  [ ] Integrar tour en esteban-site como proyecto destacado
+  [ ] Agregar más fotos a la galería cuando estén disponibles
+
+==========================================================================
