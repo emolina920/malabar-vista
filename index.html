@@ -139,6 +139,19 @@
     }
     .mv-btn-outline-white:hover { background: #fff; color: var(--ink); }
 
+    /* ── Clima ── */
+    .mv-clima { background: var(--dark); padding: 7rem 2rem; }
+    .mv-clima-inner { max-width: 860px; margin: 0 auto; text-align: center; }
+    .mv-clima-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.4rem, 5vw, 3.6rem); font-weight: 400; color: var(--cream); line-height: 1.1; margin: 0.5rem 0 1.5rem; }
+    .mv-clima-title em { font-style: italic; color: var(--gold); }
+    .mv-clima-intro { font-size: 0.9rem; color: rgba(237,232,213,0.7); line-height: 1.9; max-width: 600px; margin: 0 auto 3.5rem; }
+    .mv-clima-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-bottom: 3rem; border-top: 1px solid rgba(200,167,107,0.2); border-bottom: 1px solid rgba(200,167,107,0.2); padding: 2.5rem 0; }
+    @media(max-width:600px){ .mv-clima-grid { grid-template-columns: 1fr; gap: 1.5rem; } }
+    .mv-clima-num { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 400; color: var(--gold); margin-bottom: 0.5rem; }
+    .mv-clima-lbl { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--cream); line-height: 1.6; }
+    .mv-clima-lbl span { display: block; color: rgba(237,232,213,0.45); margin-top: 0.2rem; text-transform: none; letter-spacing: 0; font-size: 0.7rem; }
+    .mv-clima-note { font-size: 0.8rem; color: rgba(237,232,213,0.5); line-height: 1.9; max-width: 640px; margin: 0 auto; font-style: italic; border-left: 2px solid rgba(200,167,107,0.35); padding-left: 1.25rem; text-align: left; }
+
     /* ── Tour 360 ── */
     .mv-tour { background: var(--cream-d); padding: 7rem 2rem; text-align: center; }
     .mv-tour-inner { max-width: 620px; margin: 0 auto; }
@@ -886,6 +899,12 @@
       <div class="mv-spec-lbl">Seguridad</div>
     </div>
 
+    <div class="mv-spec mv-reveal" style="transition-delay:480ms">
+      <div class="mv-spec-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z"/><path d="M3 9V7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2"/><line x1="9" y1="14" x2="15" y2="14"/></svg></div>
+      <div class="mv-spec-val">Cuarto</div>
+      <div class="mv-spec-lbl">Servicio + Baño</div>
+    </div>
+
   </div>
 </section>
 
@@ -956,6 +975,32 @@
   </div>
 </section>
 
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     CLIMA
+══════════════════════════════════════════════════════════════════════════ -->
+<section class="mv-clima">
+  <div class="mv-clima-inner mv-reveal">
+    <p class="mv-eyebrow" style="color:var(--gold)">Pereira · Eje Cafetero · Colombia</p>
+    <h2 class="mv-clima-title">Primavera <em>eterna</em></h2>
+    <p class="mv-clima-intro">Pereira tiene uno de los climas más envidiados del mundo — 22 °C en promedio todo el año. Sin inviernos que soportar, sin veranos extremos. Solo una temperatura perfecta, cada día del año.</p>
+    <div class="mv-clima-grid">
+      <div class="mv-clima-item">
+        <div class="mv-clima-num">22 °C</div>
+        <div class="mv-clima-lbl">Temperatura promedio anual<br><span>Sin calefacción ni aire acondicionado</span></div>
+      </div>
+      <div class="mv-clima-item">
+        <div class="mv-clima-num">365</div>
+        <div class="mv-clima-lbl">Días de clima templado<br><span>No hay estaciones ni temporadas frías</span></div>
+      </div>
+      <div class="mv-clima-item">
+        <div class="mv-clima-num">1.411 m</div>
+        <div class="mv-clima-lbl">Altitud sobre el nivel del mar<br><span>La razón del clima perfecto todo el año</span></div>
+      </div>
+    </div>
+    <p class="mv-clima-note">Para el comprador internacional: Pereira está a 45 minutos de vuelo de Bogotá y a vuelo directo desde Miami, Madrid y Ciudad de México. Vivir aquí con este clima — sin los costos de Miami ni los inviernos de Europa — es la propuesta que cada vez más familias de alto patrimonio están descubriendo.</p>
+  </div>
+</section>
 
 <!-- ══════════════════════════════════════════════════════════════════════════
      GALERÍA
