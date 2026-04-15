@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Malabar Vista — Tour Virtual 360°</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#c9a96e;--gold-l:#e8d5a3;--dark:#0a0a0a;--text:#f0ede8;--muted:rgba(240,237,232,0.45);--surface:rgba(8,8,8,0.82)}
+html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Montserrat',sans-serif}
+#wrap{position:fixed;inset:0}
+canvas{display:block;width:100%!important;height:100%!important}
+#loading{position:fixed;inset:0;background:#0a0a0a;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1000;transition:opacity .7s ease}
+#loading.hide{opacity:0;pointer-events:none}
+.l-logo{font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:7px;color:var(--gold);margin-bottom:12px;text-transform:uppercase}
+.l-sub{font-size:9px;letter-spacing:4px;color:var(--muted);margin-bottom:52px;text-transform:uppercase}
+.l-bar-w{width:180px;height:1px;background:rgba(201,169,110,.2)}
+.l-bar{height:100%;background:var(--gold);width:0%;transition:width .25s ease}
+.l-pct{font-size:10px;letter-spacing:3px;color:var(--muted);margin-top:14px}
+#fade{position:fixed;inset:0;background:#000;opacity:0;pointer-events:none;z-index:90;transition:opacity .35s}
+#fade.in{opacity:1}
+#hdr{position:fixed;top:0;left:0;right:0;z-index:50;padding:22px 28px;display:flex;align-items:flex-start;justify-content:space-between;background:linear-gradient(to bottom,rgba(0,0,0,.72) 0%,transparent 100%);pointer-events:none}
+.h-brand{font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:5px;color:var(--gold);text-transform:uppercase;pointer-events:all;cursor:default}
+.h-center{text-align:center}
+#room-name{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:300;color:var(--text);letter-spacing:1.5px;transition:opacity .35s}
+#room-sub{font-size:8px;letter-spacing:4px;color:var(--muted);margin-top:3px;text-transform:uppercase}
+.h-counter{font-size:9px;letter-spacing:2px;color:var(--muted);text-align:right;padding-top:4px}
+#xhair{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:40}
+#xhair::before,#xhair::after{content:'';position:absolute;background:rgba(255,255,255,.28)}
+#xhair::before{width:1px;height:16px;left:0;top:-8px}
+#xhair::after{width:16px;height:1px;top:0;left:-8px}
+#hint{position:fixed;bottom:110px;left:50%;transform:translateX(-50%);font-size:8px;letter-spacing:4px;color:var(--muted);text-transform:uppercase;pointer-events:none;z-index:40;animation:hfade 5s forwards}
+@keyframes hfade{0%,60%{opacity:1}100%{opacity:0}}
+#btm{position:fixed;bottom:0;left:0;right:0;z-index:50;padding:16px 24px 24px;background:linear-gradient(to top,rgba(0,0,0,.75) 0%,transparent 100%);display:flex;align-items:flex-end;gap:10px}
+#ctrl{display:flex;gap:7px;flex-shrink:0}
+.cb{width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,.5);border:1px solid rgba(201,169,110,.3);color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:all .2s;backdrop-filter:blur(8px);flex-shrink:0}
+.cb:hover,.cb.on{background:rgba(201,169,110,.22);border-color:var(--gold)}
+#strip{flex:1;display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;padding:4px 2px;align-items:center}
+#strip::-webkit-scrollbar{display:none}
+.th{flex-shrink:0;width:56px;height:36px;border-radius:4px;border:1px solid rgba(255,255,255,.12);cursor:pointer;overflow:hidden;position:relative;transition:all .18s;background:#111}
+.th img{width:100%;height:100%;object-fit:cover;display:block}
+.th:hover{border-color:var(--gold);transform:translateY(-3px)}
+.th.cur{border-color:var(--gold);border-width:2px}
+.th-lbl{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.85));color:#fff;font-size:6.5px;letter-spacing:.4px;padding:2px 3px 3px;text-align:center;opacity:0;transition:opacity .18s;font-family:'Montserrat',sans-serif;line-height:1.2}
+.th:hover .th-lbl{opacity:1}
+.hs{position:fixed;pointer-events:all;cursor:pointer;transform:translate(-50%,-50%);z-index:45;transition:opacity .25s}
+.hs-ring{width:46px;height:46px;border-radius:50%;border:1.5px solid rgba(201,169,110,.65);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(3px);background:rgba(0,0,0,.22);animation:rpulse 2.8s infinite;transition:all .2s}
+.hs:hover .hs-ring{background:rgba(201,169,110,.28);border-color:var(--gold);animation:none;transform:scale(1.12)}
+.hs-dot{width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.hs-lbl{position:absolute;bottom:-24px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:8.5px;letter-spacing:1.8px;color:var(--text);text-transform:uppercase;background:rgba(0,0,0,.62);padding:3px 8px;border-radius:2px;pointer-events:none;opacity:0;transition:opacity .18s;font-family:'Montserrat',sans-serif}
+.hs:hover .hs-lbl{opacity:1}
+@keyframes rpulse{0%,100%{box-shadow:0 0 0 0 rgba(201,169,110,.4)}55%{box-shadow:0 0 0 9px rgba(201,169,110,0)}}
+#mmap{position:fixed;top:75px;right:16px;width:188px;background:rgba(6,6,6,.92);border:1px solid rgba(201,169,110,.2);border-radius:7px;padding:13px;z-index:55;backdrop-filter:blur(14px);display:none;max-height:calc(100vh - 120px);overflow-y:auto}
+#mmap.show{display:block}
+.mm-h{font-size:7.5px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:10px}
+.mm-section{font-size:7px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin:8px 0 4px;padding-left:4px}
+.mm-i{display:flex;align-items:center;gap:7px;padding:4px 6px;border-radius:3px;cursor:pointer;transition:background .14s}
+.mm-i:hover{background:rgba(201,169,110,.1)}
+.mm-i.cur{background:rgba(201,169,110,.18)}
+.mm-dot{width:6px;height:6px;border-radius:50%;background:rgba(201,169,110,.3);flex-shrink:0}
+.mm-i.cur .mm-dot{background:var(--gold)}
+.mm-n{font-size:9.5px;color:var(--text);letter-spacing:.3px}
+
+/* CALIBRATION OVERLAY — toggle with D key */
+#calib{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:200;
+  background:rgba(0,0,0,.88);border:1px solid var(--gold);border-radius:8px;
+  padding:22px 32px;text-align:center;display:none;pointer-events:none}
+#calib.show{display:block}
+#calib-yaw{font-family:'Cormorant Garamond',serif;font-size:52px;color:var(--gold);line-height:1;letter-spacing:-2px}
+#calib-label{font-size:8px;letter-spacing:4px;color:var(--muted);text-transform:uppercase;margin-top:6px}
+#calib-room{font-size:10px;letter-spacing:2px;color:var(--text);margin-top:4px}
+#calib-tip{font-size:8px;color:rgba(201,169,110,.5);margin-top:10px;letter-spacing:1px;line-height:1.6}
+</style>
+</head>
+<body>
+
+<div id="loading">
+  <div class="l-logo">Malabar Vista</div>
+  <div class="l-sub">Tour Virtual 360° · Cerritos Malabar</div>
+  <div class="l-bar-w"><div class="l-bar" id="lbar"></div></div>
+  <div class="l-pct" id="lpct">Cargando...</div>
+</div>
+
+<div id="wrap"></div>
+<div id="fade"></div>
+<div id="xhair"></div>
+<div id="hint">Arrastra para explorar · Clic en las flechas para navegar</div>
+
+<div id="hdr">
+  <div class="h-brand">Malabar Vista</div>
+  <div class="h-center">
+    <div id="room-name">—</div>
+    <div id="room-sub">Tour Virtual 360°</div>
+  </div>
+  <div class="h-counter" id="hctr"></div>
+</div>
+
+<div id="btm">
+  <div id="ctrl">
+    <button class="cb on" id="bauto" title="Auto-rotar">↻</button>
+    <button class="cb" id="bmap" title="Mapa">⊞</button>
+    <button class="cb" id="bzi" title="Acercar">+</button>
+    <button class="cb" id="bzo" title="Alejar">−</button>
+  </div>
+  <div id="strip"></div>
+</div>
+
+<div id="mmap">
+  <div class="mm-h">Planta · Navegación</div>
+  <div id="mmlist"></div>
+</div>
+
+<!-- Modo calibración (tecla D) -->
+<div id="calib">
+  <div id="calib-yaw">0°</div>
+  <div id="calib-label">Yaw actual</div>
+  <div id="calib-room"></div>
+  <div id="calib-tip">Mira hacia la puerta de destino<br>y anota este número en el hotspot</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+'use strict';
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ROOMS — Mapa de la propiedad
+// Hotspots: yaw = ángulo horizontal (0–360). 0 = frente al cargar la escena.
+// Para calibrar: presiona D → gira hasta apuntar a la puerta → anota el número.
+// pitch = ángulo vertical (opcional, default 0 = horizonte).
+// ═══════════════════════════════════════════════════════════════════════════════
+const ROOMS = [
+
+  // ── ZONA SOCIAL — primera sala al abrir ─────────────────────────────────────
+  { id:6, name:'Entrada Principal', sub:'Lobby interior · Acceso', section:'Zona Social',
+    file:'IMG_20260410_164200_00_232.jpg',
+    startYaw: 271,
+    hotspots:[
+      {label:'Sala social',            yaw:255, to:11},
+      {label:'Sala · Comedor · Cocina',yaw:273, to:5},
+    ]},
+
+  // ── EXTERIORES ──────────────────────────────────────────────────────────────
+  { id:2, name:'Jardín / Piscina', sub:'Exterior · Vista jardín', section:'Exteriores',
+    file:'IMG_20260410_165630_00_254.jpg',
+    hotspots:[
+      {label:'Zona BBQ',        yaw:330, to:2},
+      {label:'Terraza piscina', yaw:67,  to:4},
+      {label:'Sala Social · B', yaw:9,   to:30},
+    ]},
+
+  { id:3, name:'Zona BBQ', sub:'Parrilla · Exterior', section:'Exteriores',
+    file:'IMG_20260410_165716_00_255.jpg',
+    hotspots:[
+      {label:'Jardín',          yaw:225, to:1},
+      {label:'Sala Social · B', yaw:141, to:30},
+      {label:'Comedor',         yaw:79,  to:6},
+    ]},
+
+  { id:4, name:'Terraza Máster', sub:'Corredor exterior · Techo madera', section:'Exteriores',
+    file:'IMG_20260410_165519_00_252.jpg',
+    hotspots:[
+      {label:'Suite máster',    yaw:143, to:18},
+      {label:'Terraza piscina', yaw:77,  to:4},
+      {label:'Jardín',          yaw:30,  to:1},
+    ]},
+
+  { id:5, name:'Terraza Piscina', sub:'Piscina · Vista exterior', section:'Exteriores',
+    file:'IMG_20260410_165555_00_253.jpg',
+    startYaw: 121,
+    hotspots:[
+      {label:'Terraza máster',       yaw:81,  to:3},
+      {label:'Suite Máster · B',     yaw:36,  to:19},
+      {label:'Jardín',               yaw:145, to:1},
+      {label:'Zona BBQ',             yaw:211, to:2},
+      {label:'Sala Social · B',      yaw:246, to:30},
+      {label:'Habitación 3',         yaw:298, to:22},
+    ]},
+
+  // ── ZONA SOCIAL ─────────────────────────────────────────────────────────────
+  { id:7, name:'Sala · Comedor · Cocina', sub:'Zona abierta · Vista panorámica', section:'Zona Social',
+    file:'IMG_20260410_164247_00_233.jpg',
+    startYaw: 1,
+    hotspots:[
+      {label:'Entrada',          yaw:163, to:0},
+      {label:'Sala social',      yaw:280, to:11},
+      {label:'Comedor',          yaw:57,  to:6},
+      {label:'Cocina · Ángulo B',yaw:103, to:29},
+    ]},
+
+  { id:8, name:'Comedor', sub:'Mesa · Vista piscina', section:'Zona Social',
+    file:'IMG_20260410_165825_00_256.jpg',
+    hotspots:[
+      {label:'Zona BBQ',             yaw:101, to:2},
+      {label:'Cocina',               yaw:230, to:7},
+      {label:'Sala · Comedor',       yaw:331, to:5},
+      {label:'Cocina · Ángulo B',    yaw:293, to:29},
+    ]},
+
+  { id:9, name:'Cocina', sub:'Equipada · Isla · Mármol', section:'Zona Social',
+    file:'IMG_20260410_165900_00_257.jpg',
+    hotspots:[
+      {label:'Comedor',         yaw:35,  to:6},
+      {label:'Cocina ángulo B', yaw:281, to:29},
+    ]},
+
+  { id:10, name:'Cuarto de Servicio', sub:'Pasillo · Acceso servicio', section:'Zona Servicio',
+    file:'IMG_20260410_165956_00_260.jpg',
+    hotspots:[
+      {label:'Cocina',           yaw:109, to:7},
+      {label:'Lavandería',       yaw:229, to:9},
+      {label:'Corredor servicio',yaw:335, to:28},
+    ]},
+
+  { id:11, name:'Lavandería', sub:'Zona lavado · Jardín servicio', section:'Zona Servicio',
+    file:'IMG_20260410_170018_00_261.jpg',
+    hotspots:[
+      {label:'Zona servicio',    yaw:340, to:8},
+      {label:'Hab. servicio',    yaw:218, to:10},
+      {label:'Corredor servicio',yaw:301, to:28},
+    ]},
+
+  { id:12, name:'Habitación de Servicio', sub:'Cuarto empleados', section:'Zona Servicio',
+    file:'IMG_20260410_170103_00_262.jpg',
+    hotspots:[
+      {label:'Lavandería',      yaw:302, to:9},
+      {label:'Zona servicio',   yaw:270, to:8},
+    ]},
+
+  { id:13, name:'Sala Social', sub:'Living · Sofás · Vista piscina', section:'Zona Social',
+    file:'IMG_20260410_170235_00_264.jpg',
+    startYaw: 81,
+    hotspots:[
+      {label:'Comedor',              yaw:162, to:6},
+      {label:'Corredor hab.',        yaw:34,  to:12},
+      {label:'Entrada',              yaw:200, to:0},
+      {label:'Sala Social · Ángulo', yaw:81,  to:30},
+    ]},
+
+  // ── ZONA PRIVADA ────────────────────────────────────────────────────────────
+  { id:14, name:'Corredor Habitaciones', sub:'Pasillo privado', section:'Zona Privada',
+    file:'IMG_20260410_164417_00_235.jpg',
+    startYaw: 194,
+    hotspots:[
+      {label:'Sala social',     yaw:28,  to:11},
+      {label:'Habitación 2',    yaw:106, to:13},
+      {label:'Corredor lateral',yaw:189, to:20},
+      {label:'Antecámara',      yaw:248, to:16},
+    ]},
+
+  { id:15, name:'Habitación 2', sub:'Dormitorio · Vista jardín', section:'Zona Privada',
+    file:'IMG_20260410_164502_00_236.jpg',
+    startYaw: 46,
+    hotspots:[
+      {label:'Corredor Hab.',    yaw:255, to:12},
+      {label:'Closet',           yaw:16,  to:14},
+    ]},
+
+  { id:16, name:'Closet Habitación 2', sub:'Vestidor', section:'Zona Privada',
+    file:'IMG_20260410_164539_00_237.jpg',
+    hotspots:[
+      {label:'Habitación 2',    yaw:183, to:13},
+      {label:'Baño hab. 2',     yaw:87,  to:15},
+    ]},
+
+  { id:17, name:'Baño Habitación 2', sub:'Mármol gris · En suite', section:'Zona Privada',
+    file:'IMG_20260410_164608_00_238.jpg',
+    startYaw: 256,
+    hotspots:[
+      {label:'Closet',          yaw:88,  to:14},
+    ]},
+
+  { id:18, name:'Antecámara', sub:'Distribuidor · Baños', section:'Zona Privada',
+    file:'IMG_20260410_164701_00_239.jpg',
+    hotspots:[
+      {label:'Baño oscuro',     yaw:251, to:17},
+      {label:'Corredor',        yaw:146, to:12},
+    ]},
+
+  { id:19, name:'Baño Oscuro', sub:'Mármol negro · WC flotante', section:'Zona Privada',
+    file:'IMG_20260410_164723_00_240.jpg',
+    hotspots:[
+      {label:'Antecámara',      yaw:90,  to:16},
+    ]},
+
+  // ── SUITE MÁSTER ────────────────────────────────────────────────────────────
+  { id:20, name:'Suite Máster', sub:'Habitación principal · Vista piscina', section:'Suite Máster',
+    file:'IMG_20260410_165444_00_251.jpg',
+    startYaw: 26,
+    hotspots:[
+      {label:'Terraza máster',       yaw:84,  to:3},
+      {label:'Suite Máster · B',     yaw:259, to:19},
+    ]},
+
+  { id:21, name:'Suite Máster · Ángulo B', sub:'Vista alternativa', section:'Suite Máster',
+    file:'IMG_20260410_165419_00_250.jpg',
+    startYaw: 35,
+    hotspots:[
+      {label:'Closet máster interior', yaw:262, to:25},
+      {label:'Suite principal',        yaw:17,  to:18},
+    ]},
+
+  { id:22, name:'Corredor Lateral', sub:'Galería · Jardín interior', section:'Zona Privada',
+    file:'IMG_20260410_164758_00_241.jpg',
+    hotspots:[
+      {label:'Vestíbulo Máster A',yaw:169, to:31},
+    ]},
+
+  { id:23, name:'Vestíbulo Máster B', sub:'Vista alternativa acceso', section:'Suite Máster',
+    file:'IMG_20260410_164833_00_242.jpg',
+    hotspots:[
+      {label:'Corredor',        yaw:323, to:20},
+      {label:'Habitación 3',    yaw:232, to:22},
+      {label:'Pasillo closet',  yaw:148, to:24},
+    ]},
+
+  { id:24, name:'Habitación 3', sub:'Dormitorio · Vista piscina', section:'Zona Privada',
+    file:'IMG_20260410_164934_00_244.jpg',
+    startYaw: 55,
+    hotspots:[
+      {label:'Vestíbulo',       yaw:214, to:31},
+      {label:'Closet máster',   yaw:150, to:23},
+      {label:'Terraza piscina', yaw:52,  to:4},
+    ]},
+
+  { id:25, name:'Closet Máster', sub:'Antesala vestidor', section:'Suite Máster',
+    file:'IMG_20260410_165002_00_245.jpg',
+    startYaw: 239,
+    hotspots:[
+      {label:'Habitación 3',    yaw:140, to:22},
+    ]},
+
+  { id:26, name:'Pasillo Closet Máster', sub:'Acceso vestidor', section:'Suite Máster',
+    file:'IMG_20260410_165051_00_246.jpg',
+    startYaw: 109,
+    hotspots:[
+      {label:'Closet interior',  yaw:100, to:25},
+      {label:'Vestíbulo Máster', yaw:284, to:31},
+    ]},
+
+  { id:27, name:'Closet Máster Interior', sub:'Walk-in · Vestidor', section:'Suite Máster',
+    file:'IMG_20260410_165120_00_247.jpg',
+    startYaw: 90,
+    hotspots:[
+      {label:'Baño máster',          yaw:90,  to:26},
+      {label:'Suite Máster · B',     yaw:216, to:19},
+      {label:'Pasillo closet',       yaw:274, to:24},
+    ]},
+
+  { id:28, name:'Baño Máster', sub:'Mármol blanco · Bañera · Ducha', section:'Suite Máster',
+    file:'IMG_20260410_165245_00_248.jpg',
+    hotspots:[
+      {label:'Closet máster interior',yaw:269, to:25},
+      {label:'Vista bañera',         yaw:100, to:27},
+    ]},
+
+  { id:29, name:'Baño Máster · Bañera', sub:'Vista panorámica exterior', section:'Suite Máster',
+    file:'IMG_20260410_165316_00_249.jpg',
+    hotspots:[
+      {label:'Baño máster',     yaw:291, to:26},
+    ]},
+
+  // ── ZONA SERVICIO ───────────────────────────────────────────────────────────
+  { id:30, name:'Corredor Servicio', sub:'Pasillo zona empleados', section:'Zona Servicio',
+    file:'IMG_20260410_170144_00_263.jpg',
+    hotspots:[
+      {label:'Lavandería',      yaw:215, to:9},
+    ]},
+
+  // ── EXTRAS (calibrar ángulos con tecla D) ───────────────────────────────────
+  { id:31, name:'Cocina · Ángulo B', sub:'Segunda vista cocina', section:'Zona Social',
+    file:'IMG_20260410_165928_00_259.jpg',
+    hotspots:[
+      {label:'Sala · Comedor',       yaw:280, to:5},
+      {label:'Cocina',               yaw:20,  to:7},
+      {label:'Cuarto servicio',      yaw:153, to:8},
+    ]},
+
+  { id:32, name:'Sala Social · Ángulo B', sub:'Vista alternativa sala', section:'Zona Social',
+    file:'IMG_20260410_164330_00_234.jpg',
+    startYaw: 257,
+    hotspots:[
+      {label:'Corredor hab.',        yaw:164, to:12},
+      {label:'Sala social',          yaw:106, to:11},
+      {label:'Sala · Comedor',       yaw:40,  to:5},
+      {label:'Terraza piscina',      yaw:242, to:4},
+      {label:'Zona BBQ',             yaw:315, to:2},
+    ]},
+
+  { id:33, name:'Vestíbulo Máster A', sub:'Acceso suite principal', section:'Suite Máster',
+    file:'IMG_20260410_164905_00_243.jpg',
+    hotspots:[
+      {label:'Corredor',        yaw:323, to:20},
+      {label:'Habitación 3',    yaw:232, to:22},
+      {label:'Pasillo closet',  yaw:148, to:24},
+    ]},
+];
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// THREE.JS SETUP
+// ═══════════════════════════════════════════════════════════════════════════════
+const wrap     = document.getElementById('wrap');
+const renderer = new THREE.WebGLRenderer({antialias:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+wrap.appendChild(renderer.domElement);
+
+const scene  = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, innerWidth/innerHeight, .1, 1000);
+camera.position.set(0, 0, .001);
+
+const geo    = new THREE.SphereGeometry(500, 64, 40);
+geo.scale(-1, 1, 1); // invert to project inside
+const mat    = new THREE.MeshBasicMaterial({color:0x111111});
+const sphere = new THREE.Mesh(geo, mat);
+scene.add(sphere);
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let cur=0, yaw=0, pitch=0, tyaw=0, tpitch=0, fov=110, tfov=110;
+let drag=false, lx=0, ly=0, auto=true, mapOpen=false, calibMode=false;
+const texCache = {};
+let hsEls = [];
+
+// ── TEXTURE LOADER ────────────────────────────────────────────────────────────
+let loaded=0;
+const total=ROOMS.length;
+
+// THREE.TextureLoader: método correcto y confiable
+const texLoader = new THREE.TextureLoader();
+texLoader.crossOrigin = ''; // necesario para file:// local
+
+function updProgress(){
+  const pct = Math.round(loaded/total*100);
+  document.getElementById('lbar').style.width = pct+'%';
+  document.getElementById('lpct').textContent = pct+'%';
+}
+
+function loadTex(room, cb){
+  if(texCache[room.id] !== undefined){ if(cb) cb(texCache[room.id]); return; }
+  texLoader.load(
+    room.file,
+    (tex) => {
+      tex.minFilter = THREE.LinearFilter;
+      texCache[room.id] = tex;
+      loaded++; updProgress();
+      if(cb) cb(tex);
+      if(loaded === total) doneLoading();
+    },
+    undefined, // onProgress (no necesario)
+    () => {
+      // onError — igual inicializa para no bloquear el visor
+      texCache[room.id] = null;
+      loaded++; updProgress();
+      if(cb) cb(null);
+      if(loaded === total) doneLoading();
+    }
+  );
+}
+
+function doneLoading(){
+  setTimeout(()=> document.getElementById('loading').classList.add('hide'), 400);
+}
+
+// Carga primera sala de inmediato, el resto en paralelo
+loadTex(ROOMS[0], t => {
+  if(t){ mat.map=t; mat.color.set(0xffffff); mat.needsUpdate=true; }
+  goRoom(0, true);
+});
+ROOMS.slice(1).forEach(r => loadTex(r, null));
+
+// ── NAVIGATION ────────────────────────────────────────────────────────────────
+function goRoom(idx, instant){
+  if(idx < 0 || idx >= ROOMS.length) return;
+  const room = ROOMS[idx];
+
+  const apply = () => {
+    cur   = idx;
+    const t = texCache[room.id];
+    if(t){ mat.map=t; mat.color.set(0xffffff); }
+    else { mat.map=null; mat.color.set(0x151515); }
+    mat.needsUpdate = true;
+    document.getElementById('room-name').textContent = room.name;
+    document.getElementById('room-sub').textContent  = room.sub;
+    document.getElementById('hctr').textContent      = (idx+1)+' / '+ROOMS.length;
+    if(room.startYaw !== undefined){ yaw = room.startYaw; tyaw = room.startYaw; pitch = 0; tpitch = 0; }
+    fov = 110; tfov = 110;
+    updMinimap(); updStrip(); rebuildHS();
+    if(!instant) setTimeout(()=> document.getElementById('fade').classList.remove('in'), 80);
+  };
+
+  if(instant){ apply(); return; }
+  document.getElementById('fade').classList.add('in');
+  setTimeout(apply, 370); // wait for fade-to-black (350ms transition + buffer)
+}
+
+// ── HOTSPOT PROJECTION — usa la API de Three.js para proyección 3D exacta ────
+function projectHS(hYaw, hPitch){
+  hPitch = hPitch || 0;
+  const yR = THREE.MathUtils.degToRad(hYaw);
+  const pR = THREE.MathUtils.degToRad(hPitch);
+
+  // Dirección en espacio mundial para la esfera con X invertida
+  const dir = new THREE.Vector3(
+    -Math.sin(yR) * Math.cos(pR),
+     Math.sin(pR),
+    -Math.cos(yR) * Math.cos(pR)
+  ).normalize();
+
+  // Proyectar con la cámara actual → NDC (-1..1)
+  const ndc = dir.clone().project(camera);
+
+  // z > 1 → detrás de la cámara
+  if(ndc.z > 0.999) return null;
+
+  const x = ( ndc.x + 1) / 2 * innerWidth;
+  const y = (-ndc.y + 1) / 2 * innerHeight;
+
+  // Fuera de pantalla con margen
+  if(x < -70 || x > innerWidth+70 || y < -70 || y > innerHeight+70) return null;
+  return {x, y};
+}
+
+// ── HOTSPOT DOM ───────────────────────────────────────────────────────────────
+function rebuildHS(){
+  hsEls.forEach(e => e.remove()); hsEls = [];
+  ROOMS[cur].hotspots.forEach(hs => {
+    const el = document.createElement('div');
+    el.className = 'hs';
+    el.innerHTML = `<div class="hs-ring"><div class="hs-dot"></div></div><div class="hs-lbl">${hs.label}</div>`;
+    el.addEventListener('click', () => goRoom(hs.to));
+    document.body.appendChild(el);
+    el._yaw   = hs.yaw;
+    el._pitch = hs.pitch !== undefined ? hs.pitch : -22;
+    hsEls.push(el);
+  });
+}
+
+function updHS(){
+  hsEls.forEach(el => {
+    const p = projectHS(el._yaw, el._pitch);
+    if(p){
+      el.style.left          = p.x + 'px';
+      el.style.top           = p.y + 'px';
+      el.style.opacity       = '1';
+      el.style.pointerEvents = 'all';
+    } else {
+      el.style.opacity       = '0';
+      el.style.pointerEvents = 'none';
+    }
+  });
+}
+
+// ── STRIP (miniaturas) ────────────────────────────────────────────────────────
+function buildStrip(){
+  const s = document.getElementById('strip'); s.innerHTML = '';
+  ROOMS.forEach((r, i) => {
+    const d   = document.createElement('div');
+    d.className = 'th'; d.dataset.i = i;
+    const img = document.createElement('img'); img.src = r.file; img.alt = r.name;
+    const lbl = document.createElement('div'); lbl.className = 'th-lbl'; lbl.textContent = r.name;
+    d.appendChild(img); d.appendChild(lbl);
+    d.addEventListener('click', () => goRoom(i));
+    s.appendChild(d);
+  });
+}
+
+function updStrip(){
+  document.querySelectorAll('.th').forEach((el, i) => el.classList.toggle('cur', i===cur));
+  const active = document.querySelector('.th.cur');
+  if(active) active.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
+}
+
+// ── MINIMAP ───────────────────────────────────────────────────────────────────
+function buildMinimap(){
+  const list = document.getElementById('mmlist'); list.innerHTML = '';
+  let lastSec = '';
+  ROOMS.forEach((r, i) => {
+    if(r.section !== lastSec){
+      const s = document.createElement('div'); s.className = 'mm-section';
+      s.textContent = r.section; list.appendChild(s); lastSec = r.section;
+    }
+    const el = document.createElement('div'); el.className = 'mm-i'; el.dataset.i = i;
+    el.innerHTML = `<div class="mm-dot"></div><span class="mm-n">${r.name}</span>`;
+    el.addEventListener('click', () => goRoom(i));
+    list.appendChild(el);
+  });
+}
+
+function updMinimap(){
+  document.querySelectorAll('.mm-i').forEach((el, i) => el.classList.toggle('cur', i===cur));
+}
+
+// ── INPUT — MOUSE ─────────────────────────────────────────────────────────────
+// FIX: += para drag natural (derecha = gira derecha)
+const cvs = renderer.domElement;
+cvs.addEventListener('mousedown', e => { drag=true; lx=e.clientX; ly=e.clientY; auto=false; updAutoBtn(); });
+window.addEventListener('mousemove', e => {
+  if(!drag) return;
+  tyaw  += (e.clientX - lx) * 0.18;  // FIX: era -= (invertido)
+  tpitch -= (e.clientY - ly) * 0.10;
+  tpitch  = Math.max(-75, Math.min(75, tpitch));
+  lx = e.clientX; ly = e.clientY;
+});
+window.addEventListener('mouseup', () => drag = false);
+
+// ── INPUT — TOUCH ─────────────────────────────────────────────────────────────
+cvs.addEventListener('touchstart', e => {
+  drag=true; lx=e.touches[0].clientX; ly=e.touches[0].clientY; auto=false;
+}, {passive:true});
+cvs.addEventListener('touchmove', e => {
+  if(!drag) return;
+  tyaw  += (e.touches[0].clientX - lx) * 0.20;  // FIX: era -=
+  tpitch -= (e.touches[0].clientY - ly) * 0.12;
+  tpitch  = Math.max(-75, Math.min(75, tpitch));
+  lx = e.touches[0].clientX; ly = e.touches[0].clientY;
+}, {passive:true});
+cvs.addEventListener('touchend', () => drag = false);
+
+// ── INPUT — ZOOM ──────────────────────────────────────────────────────────────
+cvs.addEventListener('wheel', e => {
+  tfov = Math.max(30, Math.min(110, tfov + e.deltaY * 0.04));
+  e.preventDefault();
+}, {passive:false});
+
+// ── RESIZE ────────────────────────────────────────────────────────────────────
+window.addEventListener('resize', () => {
+  camera.aspect = innerWidth/innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+
+// ── CONTROLS (botones) ────────────────────────────────────────────────────────
+function updAutoBtn(){ document.getElementById('bauto').classList.toggle('on', auto); }
+document.getElementById('bauto').addEventListener('click', () => { auto=!auto; updAutoBtn(); });
+document.getElementById('bmap').addEventListener('click', () => {
+  mapOpen = !mapOpen;
+  document.getElementById('mmap').classList.toggle('show', mapOpen);
+  document.getElementById('bmap').classList.toggle('on', mapOpen);
+});
+document.getElementById('bzi').addEventListener('click', () => tfov = Math.max(30,  tfov - 10));
+document.getElementById('bzo').addEventListener('click', () => tfov = Math.min(110, tfov + 10));
+
+// ── CALIBRACIÓN — tecla D ─────────────────────────────────────────────────────
+// Muestra el yaw actual en pantalla. Gira hacia la puerta → anota el número.
+document.addEventListener('keydown', e => {
+  if(e.key === 'd' || e.key === 'D'){
+    calibMode = !calibMode;
+    document.getElementById('calib').classList.toggle('show', calibMode);
+  }
+});
+
+function updCalib(){
+  if(!calibMode) return;
+  const displayYaw = ((yaw % 360) + 360) % 360;
+  document.getElementById('calib-yaw').textContent  = Math.round(displayYaw) + '°';
+  document.getElementById('calib-room').textContent = ROOMS[cur].name;
+}
+
+// ── RENDER LOOP ───────────────────────────────────────────────────────────────
+const clk = new THREE.Clock();
+function loop(){
+  requestAnimationFrame(loop);
+  const dt = clk.getDelta();
+  if(auto && !drag) tyaw += 3 * dt; // auto-rotación hacia la derecha
+  yaw   += (tyaw  - yaw)  * 0.07;
+  pitch += (tpitch - pitch) * 0.07;
+  fov   += (tfov  - fov)   * 0.10;
+  camera.fov = fov;
+  camera.updateProjectionMatrix();
+  camera.quaternion.setFromEuler(
+    new THREE.Euler(
+      THREE.MathUtils.degToRad(pitch),
+      THREE.MathUtils.degToRad(yaw),
+      0, 'YXZ'
+    )
+  );
+  renderer.render(scene, camera);
+  updHS();
+  updCalib();
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+buildStrip(); buildMinimap(); updAutoBtn(); loop();
+</script>
+</body>
+</html>
