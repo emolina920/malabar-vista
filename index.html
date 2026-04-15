@@ -1,0 +1,1589 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Malabar Vista — Casa Campestre de Lujo · Cerritos Malabar, Pereira</title>
+  <meta name="description" content="Casa campestre de lujo con vista directa al lago en Cerritos Malabar, Pereira. 596m² construidos, 3 suites, 4 baños, piscina privada, 2.000m² de lote. $6.500M COP." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─────────────────────────────────────────────────────────────────────────
+       DESIGN TOKENS  (Christie's-inspired: blanco · crema · carbón · oro)
+    ───────────────────────────────────────────────────────────────────────── */
+    :root {
+      --white:      #FFFFFF;
+      --cream:      #F7F4EE;   /* fondo secundario cálido */
+      --cream-d:    #EDE8DC;   /* bordes, separadores */
+      --ink:        #1C1B18;   /* texto principal */
+      --ink-mid:    #4A4844;   /* texto secundario */
+      --ink-muted:  #8A887E;   /* etiquetas, captions */
+      --gold:       #B08A40;   /* acento principal — usado con sobriedad */
+      --gold-l:     #C9A35A;   /* hover de botones gold */
+      --dark:       #1C1B18;   /* sección CTA final */
+      --dark-2:     #252420;   /* fondo footer */
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────────
+       RESET & BASE
+    ───────────────────────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--white);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────────
+       NAVBAR
+    ───────────────────────────────────────────────────────────────────────── */
+    .mv-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.75rem 3rem;
+      transition: all 0.4s ease;
+    }
+    /* Sobre el hero (imagen oscura) → logo y links en blanco */
+    .mv-nav          { color: #fff; }
+    .mv-nav-logo     { color: #fff; }
+    .mv-nav-links a  { color: rgba(255,255,255,0.85); }
+    .mv-nav-cta      { border-color: rgba(255,255,255,0.6); color: #fff; }
+
+    /* Después del hero → fondo blanco con texto oscuro */
+    .mv-nav.is-scrolled {
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      padding: 1.1rem 3rem;
+      border-bottom: 1px solid var(--cream-d);
+      color: var(--ink);
+    }
+    .mv-nav.is-scrolled .mv-nav-logo { color: var(--ink); }
+    .mv-nav.is-scrolled .mv-nav-links a { color: var(--ink-mid); }
+    .mv-nav.is-scrolled .mv-nav-cta { border-color: var(--ink); color: var(--ink); }
+    .mv-nav.is-scrolled .mv-nav-cta:hover { background: var(--ink); color: #fff; }
+
+    .mv-nav-logo {
+      font-family: 'Cormorant', serif;
+      font-size: 1rem; letter-spacing: 0.38em; text-transform: uppercase;
+      font-weight: 500; text-decoration: none; transition: color 0.3s;
+    }
+    .mv-nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .mv-nav-links a {
+      font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase;
+      text-decoration: none; opacity: 0.85; transition: opacity 0.2s, color 0.3s;
+    }
+    .mv-nav-links a:hover { opacity: 1; color: var(--gold) !important; }
+    .mv-nav-cta {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
+      font-weight: 600; padding: 0.55rem 1.4rem;
+      border: 1px solid; text-decoration: none;
+      transition: background 0.25s, color 0.25s, border-color 0.25s;
+    }
+    .mv-nav-cta:hover { background: var(--gold) !important; border-color: var(--gold) !important; color: #fff !important; }
+
+    /* ─────────────────────────────────────────────────────────────────────────
+       IMAGEN CON PLACEHOLDER
+    ───────────────────────────────────────────────────────────────────────── */
+    .mv-img-wrap { position: relative; width: 100%; height: 100%; overflow: hidden; }
+    .mv-img-wrap .mv-ph {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; gap: 0.85rem;
+      background: var(--cream); border: 2px dashed var(--cream-d);
+      color: var(--ink-muted); text-align: center; padding: 2.5rem;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .mv-ph-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; line-height: 1.5; }
+    .mv-ph-size  { font-size: 0.58rem; opacity: 0.55; }
+    .mv-img-wrap img.mv-real {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; opacity: 0; transition: opacity 0.6s ease;
+    }
+    .mv-img-wrap img.mv-real.loaded { opacity: 1; }
+
+    /* ─────────────────────────────────────────────────────────────────────────
+       BOTONES
+    ───────────────────────────────────────────────────────────────────────── */
+    .mv-btn-dark {
+      display: inline-flex; align-items: center; gap: 0.7rem;
+      background: var(--ink); color: #fff;
+      font-family: 'Montserrat', sans-serif; font-size: 0.63rem;
+      font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+      padding: 1rem 2.25rem; text-decoration: none; cursor: pointer; border: none;
+      transition: background 0.25s;
+    }
+    .mv-btn-dark:hover { background: #333; }
+
+    .mv-btn-outline {
+      display: inline-flex; align-items: center; gap: 0.7rem;
+      background: transparent; color: var(--ink);
+      font-family: 'Montserrat', sans-serif; font-size: 0.63rem;
+      font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+      padding: 1rem 2.25rem; text-decoration: none; cursor: pointer;
+      border: 1px solid var(--ink); transition: all 0.25s;
+    }
+    .mv-btn-outline:hover { background: var(--ink); color: #fff; }
+
+    .mv-btn-outline-white {
+      display: inline-flex; align-items: center; gap: 0.7rem;
+      background: transparent; color: #fff;
+      font-family: 'Montserrat', sans-serif; font-size: 0.63rem;
+      font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+      padding: 1rem 2.25rem; text-decoration: none; cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.55); transition: all 0.25s;
+    }
+    .mv-btn-outline-white:hover { background: #fff; color: var(--ink); }
+
+    /* ── Tour 360 ── */
+    .mv-tour { background: var(--cream-d); padding: 7rem 2rem; text-align: center; }
+    .mv-tour-inner { max-width: 620px; margin: 0 auto; }
+    .mv-tour-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 5vw, 3.2rem); font-weight: 400; color: var(--ink); line-height: 1.1; margin: 0.5rem 0 1.25rem; }
+    .mv-tour-title em { font-style: italic; color: var(--gold); }
+    .mv-tour-sub { font-size: 0.82rem; color: var(--muted); letter-spacing: 0.03em; line-height: 1.8; margin-bottom: 2.5rem; max-width: 480px; margin-left: auto; margin-right: auto; }
+    .mv-tour-btn { margin: 0 auto; }
+
+    .mv-btn-gold {
+      display: inline-flex; align-items: center; gap: 0.7rem;
+      background: var(--gold); color: #fff;
+      font-family: 'Montserrat', sans-serif; font-size: 0.63rem;
+      font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+      padding: 1rem 2.25rem; text-decoration: none; cursor: pointer; border: none;
+      transition: background 0.25s;
+    }
+    .mv-btn-gold:hover { background: var(--gold-l); }
+
+    /* ─────────────────────────────────────────────────────────────────────────
+       EYEBROW / ETIQUETAS DE SECCIÓN
+    ───────────────────────────────────────────────────────────────────────── */
+    .mv-eyebrow {
+      font-size: 0.6rem; letter-spacing: 0.38em; text-transform: uppercase;
+      color: var(--gold); font-weight: 600;
+      display: flex; align-items: center; gap: 1rem; margin-bottom: 1.4rem;
+    }
+    .mv-eyebrow::before { content: ''; flex-shrink: 0; width: 2rem; height: 1px; background: var(--gold); }
+
+    /* ─────────────────────────────────────────────────────────────────────────
+       HERO — pantalla completa, foto con overlay sutil al pie
+    ───────────────────────────────────────────────────────────────────────── */
+    .mv-hero {
+      position: relative; height: 100vh; min-height: 640px;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      overflow: hidden;
+    }
+    .mv-hero > .mv-img-wrap { position: absolute; inset: 0; }
+    .mv-hero > .mv-img-wrap .mv-ph { border: none; background: var(--cream-d); }
+    .mv-hero-overlay {
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.08) 0%,
+        rgba(0,0,0,0.0)  30%,
+        rgba(0,0,0,0.35) 65%,
+        rgba(0,0,0,0.72) 100%
+      );
+    }
+    .mv-hero-body {
+      position: relative; z-index: 2;
+      padding: 0 3rem 5.5rem; max-width: 1400px;
+    }
+    .mv-hero-eyebrow {
+      font-size: 0.6rem; letter-spacing: 0.42em; text-transform: uppercase;
+      color: rgba(255,255,255,0.75); font-weight: 500;
+      display: flex; align-items: center; gap: 1rem; margin-bottom: 1.4rem;
+    }
+    .mv-hero-eyebrow::before { content: ''; width: 2rem; height: 1px; background: rgba(255,255,255,0.55); }
+    .mv-hero-title {
+      font-family: 'Cormorant', serif;
+      font-size: clamp(3rem, 6vw, 6.5rem);
+      font-weight: 400; line-height: 1.05; letter-spacing: -0.02em; color: #fff;
+      margin-bottom: 0.75rem;
+    }
+    .mv-hero-title em { font-style: italic; }
+    .mv-hero-sub {
+      font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: rgba(255,255,255,0.65); margin-bottom: 3rem;
+    }
+    .mv-hero-foot {
+      display: flex; align-items: flex-end;
+      justify-content: space-between; gap: 3rem; flex-wrap: wrap;
+    }
+    .mv-price-label {
+      font-size: 0.56rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: rgba(255,255,255,0.6); margin-bottom: 0.4rem;
+    }
+    .mv-price-val {
+      font-family: 'Cormorant', serif; font-weight: 500;
+      font-size: clamp(1.6rem, 2.8vw, 2.6rem); color: #fff; line-height: 1.1;
+    }
+    .mv-price-usd { font-size: 0.75rem; color: rgba(255,255,255,0.55); margin-top: 0.25rem; }
+    .mv-ctas { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+
+    /* scroll hint */
+    @keyframes mv-bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+    .mv-scroll-hint {
+      position: absolute; bottom: 2.25rem; left: 50%;
+      transform: translateX(-50%); z-index: 2;
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      color: rgba(255,255,255,0.5); font-size: 0.5rem; letter-spacing: 0.3em; text-transform: uppercase;
+    }
+    .mv-scroll-line {
+      width: 1px; height: 2.5rem;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.7), transparent);
+      animation: mv-bounce 2.2s ease infinite;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────────
+       SPECS BAR — blanco con separadores finos
+    ───────────────────────────────────────────────────────────────────────── */
+    .mv-specs {
+      background: var(--white);
+      border-bottom: 1px solid var(--cream-d);
+      padding: 3.5rem 3rem;
+    }
+    .mv-specs-grid { display: grid; grid-template-columns: repeat(6, 1fr); }
+    .mv-spec {
+      padding: 1.25rem 1rem; text-align: center;
+      border-right: 1px solid var(--cream-d);
+    }
+    .mv-spec:last-child { border-right: none; }
+    .mv-spec-icon { color: var(--gold); display: flex; justify-content: center; margin-bottom: 0.75rem; }
+    .mv-spec-val {
+      font-family: 'Cormorant', serif; font-size: 1.7rem;
+      font-weight: 600; color: var(--ink); line-height: 1; margin-bottom: 0.3rem;
+    }
+    .mv-spec-lbl { font-size: 0.56rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-muted); }
+
+    /* ─────────────────────────────────────────────────────────────────────────
+       FEATURES — grid 2×2, fondo crema, texto oscuro
+    ───────────────────────────────────────────────────────────────────────── */
+    .mv-features { padding: 7rem 3rem; background: var(--white); }
+    .mv-features-hd { max-width: 560px; margin-bottom: 5rem; }
+    .mv-feat-sh {
+      font-family: 'Cormorant', serif;
+      font-size: clamp(2rem, 3.8vw, 3.5rem);
+      font-weight: 400; line-height: 1.1; letter-spacing: -0.01em; color: var(--ink);
+      margin-bottom: 1.25rem;
+    }
+    .mv-feat-sh em { font-style: italic; color: var(--gold); }
+    .mv-feat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; }
+    .mv-feat-card { position: relative; overflow: hidden; aspect-ratio: 4/3; }
+    .mv-feat-card .mv-img-wrap { height: 100%; transition: transform 0.6s ease; }
+    .mv-feat-card .mv-img-wrap .mv-ph { border: none; background: var(--cream); }
+    .mv-feat-card:hover .mv-img-wrap { transform: scale(1.04); }
+    .mv-feat-overlay {
+      position: absolute; inset: 0; z-index: 2;
+      background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.35) 55%, transparent 100%);
+      display: flex; flex-direction: column; justify-content: flex-end; padding: 2.5rem;
+    }
+    .mv-feat-num {
+      font-family: 'Cormorant', serif; font-size: 2.5rem; font-weight: 300;
+      color: rgba(176,138,64,0.35); line-height: 1; margin-bottom: 0.5rem;
+    }
+    .mv-feat-name {
+      font-family: 'Cormorant', serif; font-size: 1.5rem;
+      font-weight: 500; color: #fff; margin-bottom: 0.5rem;
+    }
+    .mv-feat-desc { font-size: 0.72rem; line-height: 1.75; color: rgba(255,255,255,0.72); }
+
+    /* ─────────────────────────────────────────────────────────────────────────
+       GALERÍA
+    ───────────────────────────────────────────────────────────────────────── */
+    .mv-gallery { padding: 7rem 0; background: var(--cream); }
+    .mv-gallery-hd { padding: 0 3rem; margin-bottom: 3rem; }
+    .mv-gal-sh {
+      font-family: 'Cormorant', serif;
+      font-size: clamp(2rem, 3.8vw, 3.5rem);
+      font-weight: 400; line-height: 1.1; color: var(--ink);
+    }
+    .mv-gal-sh em { font-style: italic; color: var(--gold); }
+    .mv-gallery-vp { overflow: hidden; }
+    .mv-gallery-track {
+      display: flex; gap: 1.5rem; padding-left: 3rem;
+      transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      will-change: transform;
+    }
+    .mv-gallery-slide { flex: 0 0 68vw; max-width: 900px; }
+    .mv-gallery-slide .mv-img-wrap .mv-ph { background: var(--cream-d); border: 2px dashed var(--ink-muted); }
+    /* Descripción de cada slide */
+    .mv-slide-caption {
+      padding: 1.25rem 0 0;
+    }
+    .mv-slide-title {
+      font-family: 'Cormorant', serif;
+      font-size: 1.15rem; font-weight: 500; color: var(--ink);
+      margin-bottom: 0.3rem; line-height: 1.2;
+    }
+    .mv-slide-desc {
+      font-size: 0.7rem; color: var(--ink-muted); line-height: 1.65;
+      letter-spacing: 0.01em;
+    }
+
+    .mv-gallery-ctrl {
+      display: flex; align-items: center; gap: 1rem; padding: 2rem 3rem 0;
+    }
+    .mv-gal-btn {
+      width: 46px; height: 46px; flex-shrink: 0;
+      border: 1px solid var(--cream-d); background: var(--white);
+      color: var(--ink); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .mv-gal-btn:hover:not(:disabled) { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .mv-gal-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+    .mv-gal-count {
+      font-family: 'Cormorant', serif; font-size: 1.15rem;
+      color: var(--ink); margin-left: auto;
+    }
+    .mv-thumbs {
+      display: flex; gap: 0.75rem; padding: 1.5rem 3rem 0;
+      overflow-x: auto; scrollbar-width: none;
+    }
+    .mv-thumbs::-webkit-scrollbar { display: none; }
+    .mv-thumb {
+      flex: 0 0 90px; height: 60px; cursor: pointer;
+      opacity: 0.35; border: 1.5px solid transparent;
+      transition: opacity 0.25s, border-color 0.25s; overflow: hidden;
+    }
+    .mv-thumb .mv-img-wrap .mv-ph { font-size: 0; border: none; background: var(--cream-d); padding: 0; }
+    .mv-thumb .mv-img-wrap .mv-ph svg,
+    .mv-thumb .mv-img-wrap .mv-ph-label,
+    .mv-thumb .mv-img-wrap .mv-ph-size { display: none; }
+    .mv-thumb.is-active { opacity: 1; border-color: var(--gold); }
+    .mv-thumb:hover { opacity: 0.7; }
+
+    /* ─────────────────────────────────────────────────────────────────────────
+       STATS — fondo crema oscuro con números grandes
+    ───────────────────────────────────────────────────────────────────────── */
+    .mv-stats {
+      padding: 7rem 3rem;
+      background: var(--ink);  /* única sección muy oscura en el cuerpo */
+      color: #fff;
+    }
+    .mv-stats-hd { text-align: center; margin-bottom: 5rem; }
+    .mv-stats-eyebrow {
+      font-size: 0.58rem; letter-spacing: 0.4em; text-transform: uppercase;
+      color: var(--gold); font-weight: 600;
+      display: flex; align-items: center; justify-content: center; gap: 1rem;
+      margin-bottom: 1.2rem;
+    }
+    .mv-stats-eyebrow::before,
+    .mv-stats-eyebrow::after { content: ''; width: 2rem; height: 1px; background: var(--gold); }
+    .mv-stats-title {
+      font-family: 'Cormorant', serif;
+      font-size: clamp(2rem, 3.5vw, 3.2rem);
+      font-weight: 400; color: #fff; line-height: 1.1;
+    }
+    .mv-stats-title em { font-style: italic; color: var(--gold-l); }
+    .mv-stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+    .mv-stat { text-align: center; padding: 0 1rem; }
+    .mv-stat + .mv-stat { border-left: 1px solid rgba(255,255,255,0.1); }
+    .mv-stat-num {
+      font-family: 'Cormorant', serif;
+      font-size: clamp(3rem, 5vw, 5rem);
+      font-weight: 600; color: var(--gold-l); line-height: 1; margin-bottom: 0.75rem;
+    }
+    .mv-stat-lbl { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.55); line-height: 1.7; }
+    @keyframes mv-fade-up { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+    .mv-stat.is-visible { animation: mv-fade-up 0.6s ease both; }
+    .mv-stat:nth-child(2).is-visible { animation-delay: 0.1s; }
+    .mv-stat:nth-child(3).is-visible { animation-delay: 0.2s; }
+    .mv-stat:nth-child(4).is-visible { animation-delay: 0.3s; }
+
+    /* ─────────────────────────────────────────────────────────────────────────
+       UBICACIÓN — blanco, texto oscuro
+    ───────────────────────────────────────────────────────────────────────── */
+    .mv-location { padding: 7rem 3rem; background: var(--white); }
+    .mv-loc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .mv-loc-sh {
+      font-family: 'Cormorant', serif;
+      font-size: clamp(2rem, 3.8vw, 3.5rem);
+      font-weight: 400; line-height: 1.1; color: var(--ink); margin-bottom: 1.5rem;
+    }
+    .mv-loc-sh em { font-style: italic; color: var(--gold); }
+    .mv-loc-desc { font-size: 0.9rem; line-height: 2; color: var(--ink-mid); margin-bottom: 2.5rem; }
+    .mv-dist-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.9rem 0; border-bottom: 1px solid var(--cream-d);
+    }
+    .mv-dist-row:first-child { border-top: 1px solid var(--cream-d); }
+    .mv-dist-place { font-size: 0.78rem; color: var(--ink-mid); }
+    .mv-dist-time { font-family: 'Cormorant', serif; font-size: 1.1rem; font-weight: 600; color: var(--gold); }
+    .mv-map-ph {
+      background: var(--cream); border: 1px solid var(--cream-d);
+      min-height: 460px; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 1.25rem;
+      color: var(--ink-muted); text-align: center; padding: 2.5rem;
+    }
+    .mv-map-ph-title { font-family: 'Cormorant', serif; font-size: 1.3rem; font-weight: 500; color: var(--ink); }
+    .mv-map-ph code {
+      font-size: 0.58rem; background: var(--cream-d); color: var(--ink-mid);
+      padding: 4px 10px; border-radius: 2px; font-family: monospace;
+      display: block; margin-top: 0.25rem; word-break: break-all;
+    }
+    .mv-map-ph small { font-size: 0.6rem; }
+
+    /* ─────────────────────────────────────────────────────────────────────────
+       INTERNATIONAL BUYERS — fondo crema
+    ───────────────────────────────────────────────────────────────────────── */
+    .mv-intl { padding: 7rem 3rem; background: var(--cream); }
+    .mv-intl-hd { max-width: 700px; margin-bottom: 5rem; }
+    .mv-intl-title {
+      font-family: 'Cormorant', serif;
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 400; color: var(--ink); line-height: 1.1; margin-bottom: 1.25rem;
+    }
+    .mv-intl-title em { font-style: italic; color: var(--gold); }
+    .mv-intl-sub { font-size: 0.82rem; line-height: 1.9; color: var(--ink-mid); }
+    .mv-intl-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .mv-intl-card {
+      background: var(--white); padding: 2.75rem 2.25rem;
+      border: 1px solid var(--cream-d);
+      border-top: 3px solid transparent;
+      transition: border-top-color 0.3s, box-shadow 0.3s;
+    }
+    .mv-intl-card:hover { border-top-color: var(--gold); box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
+    .mv-intl-icon { color: var(--gold); margin-bottom: 1.75rem; }
+    .mv-intl-card-title {
+      font-family: 'Cormorant', serif; font-size: 1.45rem;
+      font-weight: 500; color: var(--ink); margin-bottom: 1rem; line-height: 1.2;
+    }
+    .mv-intl-card-text { font-size: 0.78rem; line-height: 1.9; color: var(--ink-mid); }
+
+    /* ─────────────────────────────────────────────────────────────────────────
+       CTA FINAL — sección oscura elegante
+    ───────────────────────────────────────────────────────────────────────── */
+    .mv-cta-final {
+      padding: 9rem 3rem; text-align: center; position: relative; overflow: hidden;
+      background: var(--dark);
+    }
+    .mv-cta-final::before {
+      content: ''; position: absolute;
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 1px; height: 5rem;
+      background: linear-gradient(to bottom, transparent, rgba(176,138,64,0.5));
+    }
+    .mv-cta-eyebrow {
+      font-size: 0.56rem; letter-spacing: 0.5em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 2rem;
+    }
+    .mv-cta-title {
+      font-family: 'Cormorant', serif;
+      font-size: clamp(2.8rem, 5vw, 5rem);
+      font-weight: 300; color: #fff; line-height: 1.08; margin-bottom: 1rem;
+    }
+    .mv-cta-title em { font-style: italic; color: rgba(255,255,255,0.75); }
+    .mv-cta-sub {
+      font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(255,255,255,0.4); margin-bottom: 4rem;
+    }
+    /* WhatsApp con estilo refinado — no verde brillante */
+    .mv-wa-btn {
+      display: inline-flex; align-items: center; gap: 1rem;
+      background: var(--white); color: var(--ink);
+      font-family: 'Montserrat', sans-serif; font-size: 0.68rem;
+      font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+      padding: 1.2rem 3rem; text-decoration: none;
+      transition: background 0.25s, transform 0.2s;
+    }
+    .mv-wa-btn:hover { background: var(--cream); transform: translateY(-2px); }
+    .mv-wa-note { margin-top: 1.5rem; font-size: 0.65rem; color: rgba(255,255,255,0.35); letter-spacing: 0.1em; }
+
+    /* ─────────────────────────────────────────────────────────────────────────
+       FOOTER
+    ───────────────────────────────────────────────────────────────────────── */
+    .mv-footer { background: var(--dark-2); padding: 4.5rem 3rem 2.5rem; }
+    .mv-footer-top {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; gap: 3rem; margin-bottom: 3rem; flex-wrap: wrap;
+    }
+    .mv-footer-brand {
+      font-family: 'Cormorant', serif; font-size: 0.95rem; letter-spacing: 0.38em;
+      text-transform: uppercase; color: rgba(255,255,255,0.8); margin-bottom: 0.5rem;
+    }
+    .mv-footer-tagline { font-size: 0.65rem; color: rgba(255,255,255,0.35); letter-spacing: 0.08em; }
+    .mv-footer-links a {
+      display: block; font-size: 0.7rem; color: rgba(255,255,255,0.45);
+      text-decoration: none; margin-bottom: 0.5rem; transition: color 0.2s;
+    }
+    .mv-footer-links a:hover { color: rgba(255,255,255,0.85); }
+    .mv-footer-addr { font-size: 0.7rem; color: rgba(255,255,255,0.35); }
+    .mv-footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.07); padding-top: 1.75rem;
+      display: flex; justify-content: space-between;
+      align-items: center; gap: 1rem; flex-wrap: wrap;
+    }
+    .mv-footer-legal { font-size: 0.56rem; color: rgba(255,255,255,0.3); letter-spacing: 0.06em; }
+
+    /* ─────────────────────────────────────────────────────────────────────────
+       RESPONSIVE
+    ───────────────────────────────────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .mv-specs-grid { grid-template-columns: repeat(3,1fr); }
+      .mv-spec:nth-child(3) { border-right: none; }
+      .mv-spec:nth-child(4), .mv-spec:nth-child(5), .mv-spec:nth-child(6) { border-top: 1px solid var(--cream-d); }
+      .mv-stats-grid { grid-template-columns: repeat(2,1fr); gap: 3rem; }
+      .mv-stat + .mv-stat { border-left: none; }
+      .mv-loc-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .mv-intl-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+      .mv-feat-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .mv-nav { padding: 1.5rem; }
+      .mv-nav.is-scrolled { padding: 1rem 1.5rem; }
+      .mv-nav-links { display: none; }
+      .mv-hero-body { padding: 0 1.5rem 4.5rem; }
+      .mv-hero-foot { flex-direction: column; align-items: flex-start; gap: 2rem; }
+      .mv-ctas { flex-direction: column; align-items: flex-start; }
+      .mv-specs { padding: 2.5rem 1.5rem; }
+      .mv-specs-grid { grid-template-columns: repeat(2,1fr); }
+      .mv-spec:nth-child(2) { border-right: none; }
+      .mv-spec:nth-child(3), .mv-spec:nth-child(4), .mv-spec:nth-child(5), .mv-spec:nth-child(6) { border-top: 1px solid var(--cream-d); }
+      .mv-spec:nth-child(3), .mv-spec:nth-child(5) { border-right: 1px solid var(--cream-d); }
+      .mv-features { padding: 5rem 1.5rem; }
+      .mv-gallery { padding: 5rem 0; }
+      .mv-gallery-hd { padding: 0 1.5rem; }
+      .mv-gallery-slide { flex: 0 0 85vw; }
+      .mv-gallery-track { padding-left: 1.5rem; }
+      .mv-gallery-ctrl { padding: 1.75rem 1.5rem 0; }
+      .mv-thumbs { padding: 1.25rem 1.5rem 0; }
+      .mv-stats { padding: 5rem 1.5rem; }
+      .mv-location { padding: 5rem 1.5rem; }
+      .mv-intl { padding: 5rem 1.5rem; }
+      .mv-cta-final { padding: 6rem 1.5rem; }
+      .mv-footer { padding: 3.5rem 1.5rem 2rem; }
+      .mv-footer-top { flex-direction: column; gap: 2rem; }
+      .mv-footer-bottom { flex-direction: column; align-items: flex-start; }
+    }
+    /* ─────────────────────────────────────────────────────────────────────────
+       HERO — sticky container para la transición scroll día → noche
+    ───────────────────────────────────────────────────────────────────────── */
+    .mv-hero-outer {
+      position: relative;
+      height: 220vh;  /* el usuario scrollea 120vh dentro del hero sticky */
+    }
+    .mv-hero {
+      position: sticky !important;
+      top: 0;
+    }
+
+    .mv-hero-layers { position: absolute; inset: 0; }
+    .mv-hero-layer  { position: absolute; inset: 0; }
+    .mv-hero-layer-noche { transition: opacity 0.08s linear; } /* actualizado por JS suavemente */
+
+    /* Video de fondo */
+    .mv-hero-video {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+    .mv-hero-ph-bg {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; gap: 0.85rem;
+      color: var(--ink-muted); text-align: center; padding: 2.5rem;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    /* Barra de progreso día/noche — esquina inferior derecha */
+    .mv-dn-bar {
+      position: absolute; bottom: 2.25rem; right: 3rem; z-index: 3;
+      display: flex; align-items: center; gap: 0.75rem;
+      font-size: 0.52rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+    .mv-dn-track {
+      width: 60px; height: 2px; background: rgba(255,255,255,0.2);
+      position: relative; overflow: hidden;
+    }
+    .mv-dn-fill {
+      position: absolute; inset: 0 auto 0 0;
+      width: 0%; background: rgba(255,255,255,0.75);
+      transition: width 0.08s linear;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────────
+       SCROLL REVEAL — animación de entrada al hacer scroll
+    ───────────────────────────────────────────────────────────────────────── */
+    .mv-reveal {
+      opacity: 0;
+      transform: translateY(38px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+    .mv-reveal.from-left  { transform: translateX(-32px); }
+    .mv-reveal.from-right { transform: translateX(32px); }
+    .mv-reveal.is-visible {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .mv-scroll-line { animation: none; }
+      .mv-stat { animation: none !important; }
+      .mv-gallery-track { transition: none; }
+      .mv-feat-card .mv-img-wrap { transition: none; }
+      .mv-reveal { opacity: 1; transform: none; transition: none; }
+      .mv-hero-layer { transition: none; }
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────────
+       LIGHTBOX
+    ───────────────────────────────────────────────────────────────────────── */
+    .mv-lb {
+      display: none; position: fixed; inset: 0; z-index: 9999;
+      background: rgba(0,0,0,0.96);
+      align-items: center; justify-content: center;
+    }
+    .mv-lb.is-open { display: flex; }
+    .mv-lb-img {
+      max-width: calc(100vw - 120px);
+      max-height: calc(100vh - 120px);
+      object-fit: contain; border-radius: 2px;
+      user-select: none; -webkit-user-drag: none;
+      display: block;
+    }
+    .mv-lb-close {
+      position: absolute; top: 1rem; right: 1.25rem;
+      background: none; border: none; color: #fff;
+      font-size: 2.2rem; line-height: 1; cursor: pointer;
+      opacity: 0.7; transition: opacity 0.2s; z-index: 1;
+    }
+    .mv-lb-close:hover { opacity: 1; }
+    .mv-lb-arrow {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
+      color: #fff; width: 48px; height: 48px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: background 0.2s; z-index: 1;
+    }
+    .mv-lb-arrow:hover { background: rgba(255,255,255,0.25); }
+    .mv-lb-arrow:disabled { opacity: 0.15; cursor: default; pointer-events: none; }
+    .mv-lb-prev { left: 1.25rem; }
+    .mv-lb-next { right: 1.25rem; }
+    .mv-lb-caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 2rem 2rem 1.5rem;
+      background: linear-gradient(transparent, rgba(0,0,0,0.75));
+      text-align: center; pointer-events: none;
+    }
+    .mv-lb-cap-title {
+      font-family: 'Cormorant', serif;
+      font-size: 1.2rem; font-weight: 500; color: #fff;
+      margin-bottom: 0.3rem;
+    }
+    .mv-lb-cap-num {
+      font-size: 0.65rem; color: rgba(255,255,255,0.45);
+      letter-spacing: 0.12em; text-transform: uppercase;
+    }
+    @media (max-width: 600px) {
+      .mv-lb-img { max-width: 100vw; max-height: 80vh; }
+      .mv-lb-arrow { width: 40px; height: 40px; }
+      .mv-lb-prev { left: 0.5rem; }
+      .mv-lb-next { right: 0.5rem; }
+      .mv-lb-cap-title { font-size: 1rem; }
+    }
+    /* cursor zoom en imágenes de galería */
+    .mv-gallery-slide .mv-img-wrap { cursor: zoom-in; }
+
+    /* ── botón "Ver video" en hero — solo aparece en móvil ── */
+    .mv-hero-vid-btn {
+      display: none;
+      position: absolute; bottom: 7.5rem; left: 50%; transform: translateX(-50%);
+      z-index: 20;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.35);
+      color: #fff;
+      padding: 0.65rem 1.5rem 0.65rem 1.15rem;
+      border-radius: 30px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      cursor: pointer; align-items: center; gap: 0.55rem;
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      transition: background 0.2s; white-space: nowrap;
+    }
+    .mv-hero-vid-btn:hover, .mv-hero-vid-btn:focus { background: rgba(255,255,255,0.28); }
+    @media (max-width: 900px) { .mv-hero-vid-btn { display: flex; } }
+
+    /* ── lightbox en modo vídeo ── */
+    .mv-lb-video {
+      display: none;
+      width: 100%;                  /* ocupa todo el ancho */
+      max-height: 78vh;             /* no desborda la pantalla en vertical */
+      border-radius: 2px; background: #000;
+    }
+    .mv-lb.is-video .mv-lb-img   { display: none; }
+    .mv-lb.is-video .mv-lb-video { display: block; }
+    /* feat cards: cursor en toda la tarjeta */
+    .mv-feat-card { cursor: zoom-in; }
+  </style>
+</head>
+
+<body>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     NAVBAR
+══════════════════════════════════════════════════════════════════════════ -->
+<nav class="mv-nav" id="mv-nav">
+  <a href="#hero" class="mv-nav-logo">Malabar Vista</a>
+  <ul class="mv-nav-links">
+    <li><a href="#propiedad">La Propiedad</a></li>
+    <li><a href="#galeria">Galería</a></li>
+    <li><a href="#ubicacion">Ubicación</a></li>
+    <li><a href="#inversion">Inversión</a></li>
+  </ul>
+  <a href="https://wa.me/573217664826?text=Hola%2C%20me%20interesa%20la%20casa%20con%20vista%20al%20lago%20en%20Cerritos%20Malabar"
+     target="_blank" rel="noopener noreferrer" class="mv-nav-cta">
+    Agendar Visita
+  </a>
+</nav>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     HERO — wrapper sticky (220vh) para la transición día→noche al scroll
+══════════════════════════════════════════════════════════════════════════ -->
+<div class="mv-hero-outer" id="mv-hero-outer">
+<section class="mv-hero" id="hero">
+
+  <div class="mv-hero-layers">
+
+    <!-- ── CAPA DÍA ────────────────────────────────────────────────────── -->
+    <div class="mv-hero-layer" id="hero-dia">
+      <!-- Placeholder: se oculta cuando el video carga -->
+      <div class="mv-hero-ph-bg" id="ph-dia" style="background:var(--cream-d)">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--ink-muted)" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <p style="font-size:0.68rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase">Video de Día · fotos/hero-dia.mp4</p>
+        <p style="font-size:0.58rem;opacity:0.55">1920×1080px mínimo — toma de drone, luz de día</p>
+      </div>
+      <!-- Video drone día -->
+      <video class="mv-hero-video" id="vid-dia"
+             autoplay muted loop playsinline preload="auto"
+             aria-hidden="true">
+        <source src="fotos/hero-dia.mp4"  type="video/mp4" />
+        <source src="fotos/hero-dia.webm" type="video/webm" />
+      </video>
+    </div>
+
+    <!-- ── CAPA NOCHE ──────────────────────────────────────────────────── -->
+    <div class="mv-hero-layer mv-hero-layer-noche" id="hero-noche" style="opacity:0">
+      <div class="mv-hero-ph-bg" id="ph-noche" style="background:#141824">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(200,167,107,0.65)" stroke-width="1.5"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <p style="font-size:0.68rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(200,167,107,0.8)">Video de Noche · fotos/hero-noche.mp4</p>
+        <p style="font-size:0.58rem;color:rgba(200,167,107,0.45)">1920×1080px mínimo — toma de drone, noche o atardecer</p>
+      </div>
+      <!-- Video drone noche -->
+      <video class="mv-hero-video" id="vid-noche"
+             autoplay muted loop playsinline preload="none"
+             aria-hidden="true">
+        <source src="fotos/hero-noche.mp4"  type="video/mp4" />
+        <source src="fotos/hero-noche.webm" type="video/webm" />
+      </video>
+    </div>
+
+  </div><!-- /mv-hero-layers -->
+
+  <div class="mv-hero-overlay"></div>
+
+  <!-- Ver video en pantalla completa (visible solo en móvil) -->
+  <button class="mv-hero-vid-btn" id="mv-hero-vid-btn" aria-label="Ver video en pantalla completa">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+    Ver video
+  </button>
+
+  <!-- Indicador de progreso día → noche -->
+  <div class="mv-dn-bar" aria-hidden="true">
+    <span id="mv-dn-label">Día</span>
+    <div class="mv-dn-track"><div class="mv-dn-fill" id="mv-dn-fill"></div></div>
+    <span id="mv-dn-label2">Noche</span>
+  </div>
+
+  <div class="mv-hero-body">
+    <p class="mv-hero-eyebrow">Cerritos Malabar · Pereira, Risaralda</p>
+    <h1 class="mv-hero-title">
+      Una Vista que<br>
+      <em>Pocos Privilegiados</em><br>
+      Conocerán
+    </h1>
+    <p class="mv-hero-sub">
+      Casa Campestre de Lujo · Vista Directa al Lago · Conjunto Cerrado · Seguridad 24/7
+    </p>
+    <div class="mv-hero-foot">
+      <div>
+        <p class="mv-price-label">Precio de venta</p>
+        <p class="mv-price-val">$6.500.000.000 COP</p>
+        <p class="mv-price-usd">≈ USD $1.780.000 &nbsp;·&nbsp; Precio negociable &nbsp;·&nbsp; Venta directa</p>
+      </div>
+      <div class="mv-ctas">
+        <a href="https://wa.me/573217664826?text=Hola%2C%20me%20interesa%20la%20casa%20con%20vista%20al%20lago%20en%20Cerritos%20Malabar"
+           target="_blank" rel="noopener noreferrer" class="mv-btn-dark">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.127.557 4.127 1.529 5.863L.073 23.927l6.263-1.438A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.86 0-3.604-.5-5.106-1.373l-.367-.216-3.714.852.868-3.614-.237-.383A9.958 9.958 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+          Agendar Visita Privada
+        </a>
+        <a href="#galeria" class="mv-btn-outline-white">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          Ver Galería
+        </a>
+        <a href="/tour/" target="_blank" rel="noopener noreferrer" class="mv-btn-outline-white">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/></svg>
+          Tour Virtual 360°
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="mv-scroll-hint" aria-hidden="true">
+    <span>Scroll</span>
+    <div class="mv-scroll-line"></div>
+  </div>
+
+</section>
+</div><!-- /mv-hero-outer -->
+
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SPECS BAR
+══════════════════════════════════════════════════════════════════════════ -->
+<section id="propiedad" class="mv-specs">
+  <div class="mv-specs-grid">
+
+    <div class="mv-spec mv-reveal" style="transition-delay:0ms">
+      <div class="mv-spec-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <div class="mv-spec-val">596 m²</div>
+      <div class="mv-spec-lbl">Área Construida</div>
+    </div>
+
+    <div class="mv-spec mv-reveal" style="transition-delay:80ms">
+      <div class="mv-spec-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div>
+      <div class="mv-spec-val">2.000 m²</div>
+      <div class="mv-spec-lbl">Lote Total</div>
+    </div>
+
+    <div class="mv-spec mv-reveal" style="transition-delay:160ms">
+      <div class="mv-spec-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4v16M22 4v16M2 8h20M2 16h20"/><rect x="6" y="8" width="5" height="5" rx="1"/><rect x="13" y="8" width="5" height="5" rx="1"/></svg></div>
+      <div class="mv-spec-val">3 Suites</div>
+      <div class="mv-spec-lbl">Con Baño Privado</div>
+    </div>
+
+    <div class="mv-spec mv-reveal" style="transition-delay:240ms">
+      <div class="mv-spec-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 6V2l-4 4"/><path d="M2 12h20v2a8 8 0 0 1-16 0v-2"/><path d="M2 12V7a2 2 0 0 1 2-2h1"/></svg></div>
+      <div class="mv-spec-val">4 Baños</div>
+      <div class="mv-spec-lbl">3 en Suite + Visitas</div>
+    </div>
+
+    <div class="mv-spec mv-reveal" style="transition-delay:320ms">
+      <div class="mv-spec-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12 C4 10 6 14 8 12 C10 10 12 14 14 12 C16 10 18 14 20 12 C22 10 22 12 22 12"/><path d="M2 18 C4 16 6 20 8 18 C10 16 12 20 14 18 C16 16 18 20 20 18"/><path d="M7 4L7 10M17 4L17 10M7 4L17 4"/></svg></div>
+      <div class="mv-spec-val">Piscina</div>
+      <div class="mv-spec-lbl">Privada</div>
+    </div>
+
+    <div class="mv-spec mv-reveal" style="transition-delay:400ms">
+      <div class="mv-spec-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="mv-spec-val">24/7</div>
+      <div class="mv-spec-lbl">Seguridad</div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     FEATURES
+══════════════════════════════════════════════════════════════════════════ -->
+<section class="mv-features">
+  <div class="mv-features-hd mv-reveal">
+    <p class="mv-eyebrow">Diferenciales únicos</p>
+    <h2 class="mv-feat-sh">
+      Por qué esta casa<br>
+      no tiene <em>igual</em><br>
+      en Malabar
+    </h2>
+  </div>
+
+  <div class="mv-feat-grid">
+
+    <div class="mv-feat-card mv-reveal" style="transition-delay:0ms">
+      <div class="mv-img-wrap">
+        <div class="mv-ph"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span class="mv-ph-label">Vista al Lago · fotos/feat-1.jpg</span><span class="mv-ph-size">900×680px</span></div>
+        <img loading="lazy" class="mv-real" src="fotos/feat-1.jpg" alt="Vista al lago" />
+      </div>
+      <div class="mv-feat-overlay">
+        <div class="mv-feat-num">01</div>
+        <div class="mv-feat-name">Vista Directa al Lago</div>
+        <div class="mv-feat-desc">De las poquísimas propiedades en Cerritos Malabar con acceso visual privilegiado al lago. Una rareza en el mercado que incrementa su valor cada año.</div>
+      </div>
+    </div>
+
+    <div class="mv-feat-card mv-reveal" style="transition-delay:120ms">
+      <div class="mv-img-wrap">
+        <div class="mv-ph"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span class="mv-ph-label">Interior · fotos/feat-2.jpg</span><span class="mv-ph-size">900×680px</span></div>
+        <img loading="lazy" class="mv-real" src="fotos/feat-2.jpg" alt="Diseño arquitectónico" />
+      </div>
+      <div class="mv-feat-overlay">
+        <div class="mv-feat-num">02</div>
+        <div class="mv-feat-name">Diseño Arquitectónico</div>
+        <div class="mv-feat-desc">Espacios de doble altura, ventanales del piso al techo y una integración perfecta entre el interior y el paisaje natural que rodea la propiedad.</div>
+      </div>
+    </div>
+
+    <div class="mv-feat-card mv-reveal" style="transition-delay:0ms">
+      <div class="mv-img-wrap">
+        <div class="mv-ph"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span class="mv-ph-label">Piscina · fotos/feat-3.jpg</span><span class="mv-ph-size">900×680px</span></div>
+        <img loading="lazy" class="mv-real" src="fotos/feat-3.jpg" alt="Piscina privada" />
+      </div>
+      <div class="mv-feat-overlay">
+        <div class="mv-feat-num">03</div>
+        <div class="mv-feat-name">Piscina en 2.000 m² Propios</div>
+        <div class="mv-feat-desc">2.000 metros cuadrados de lote con privacidad total, jardines amplios y piscina rodeada de naturaleza tropical. El espacio que toda familia de alto perfil merece.</div>
+      </div>
+    </div>
+
+    <div class="mv-feat-card mv-reveal" style="transition-delay:120ms">
+      <div class="mv-img-wrap">
+        <div class="mv-ph"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span class="mv-ph-label">Conjunto · fotos/feat-4.jpg</span><span class="mv-ph-size">900×680px</span></div>
+        <img loading="lazy" class="mv-real" src="fotos/feat-4.jpg" alt="Cerritos Malabar" />
+      </div>
+      <div class="mv-feat-overlay">
+        <div class="mv-feat-num">04</div>
+        <div class="mv-feat-name">Atardeceres que no se Olvidan</div>
+        <div class="mv-feat-desc">Cerritos Malabar tiene los atardeceres más espectaculares del Eje Cafetero. El cielo se tiñe de naranja y violeta sobre el lago todas las tardes — el tipo de vista que antes solo se veía en películas.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     GALERÍA
+══════════════════════════════════════════════════════════════════════════ -->
+<section id="galeria" class="mv-gallery">
+  <div class="mv-gallery-hd mv-reveal">
+    <p class="mv-eyebrow">Galería</p>
+    <h2 class="mv-gal-sh">Cada espacio, una <em>experiencia</em></h2>
+  </div>
+
+  <div class="mv-gallery-vp mv-reveal" style="transition-delay:150ms">
+    <div class="mv-gallery-track" id="mv-gallery-track">
+
+      <div class="mv-gallery-slide">
+        <div class="mv-img-wrap" style="height:460px">
+          <div class="mv-ph"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span class="mv-ph-label">fotos/galeria-1.jpg</span><span class="mv-ph-size">1400×900px</span></div>
+          <img loading="lazy" class="mv-real" src="fotos/galeria-1.jpg" alt="Vista al lago" />
+        </div>
+        <div class="mv-slide-caption">
+          <div class="mv-slide-title">Vista al Lago</div>
+          <div class="mv-slide-desc">La vista que define la propiedad. Desde la terraza, el lago llena el horizonte — un privilegio que muy pocas casas en Malabar tienen.</div>
+        </div>
+      </div>
+
+      <div class="mv-gallery-slide">
+        <div class="mv-img-wrap" style="height:460px">
+          <div class="mv-ph"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span class="mv-ph-label">fotos/galeria-2.jpg</span><span class="mv-ph-size">1400×900px</span></div>
+          <img loading="lazy" class="mv-real" src="fotos/galeria-2.jpg" alt="Entrada" />
+        </div>
+        <div class="mv-slide-caption">
+          <div class="mv-slide-title">Entrada Principal</div>
+          <div class="mv-slide-desc">Primera impresión de clase. El acceso da la bienvenida con una fachada de carácter dentro de un conjunto cerrado de alta seguridad en Cerritos Malabar.</div>
+        </div>
+      </div>
+
+      <div class="mv-gallery-slide">
+        <div class="mv-img-wrap" style="height:460px">
+          <div class="mv-ph"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span class="mv-ph-label">fotos/galeria-3.jpg</span><span class="mv-ph-size">1400×900px</span></div>
+          <img loading="lazy" class="mv-real" src="fotos/galeria-3.jpg" alt="Sala" />
+        </div>
+        <div class="mv-slide-caption">
+          <div class="mv-slide-title">Sala Principal</div>
+          <div class="mv-slide-desc">Espacios de doble altura con ventanales del piso al techo. La sala integra el interior con el paisaje natural de forma continua y luminosa.</div>
+        </div>
+      </div>
+
+      <div class="mv-gallery-slide">
+        <div class="mv-img-wrap" style="height:460px">
+          <div class="mv-ph"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span class="mv-ph-label">fotos/galeria-4.jpg</span><span class="mv-ph-size">1400×900px</span></div>
+          <img loading="lazy" class="mv-real" src="fotos/galeria-4.jpg" alt="Cocina y comedor" />
+        </div>
+        <div class="mv-slide-caption">
+          <div class="mv-slide-title">Cocina & Comedor Gourmet</div>
+          <div class="mv-slide-desc">Diseñada para quien disfruta cocinar y recibir. Isla central, acabados de primera y un comedor que convierte cada cena en una experiencia.</div>
+        </div>
+      </div>
+
+      <div class="mv-gallery-slide">
+        <div class="mv-img-wrap" style="height:460px">
+          <div class="mv-ph"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span class="mv-ph-label">fotos/galeria-5.jpg</span><span class="mv-ph-size">1400×900px</span></div>
+          <img loading="lazy" class="mv-real" src="fotos/galeria-5.jpg" alt="Habitación principal" />
+        </div>
+        <div class="mv-slide-caption">
+          <div class="mv-slide-title">Suite Principal</div>
+          <div class="mv-slide-desc">La habitación principal tiene vista directa al lago. Despertar con ese paisaje no tiene precio — literalmente, es uno de los atributos más difíciles de encontrar en Malabar.</div>
+        </div>
+      </div>
+
+      <div class="mv-gallery-slide">
+        <div class="mv-img-wrap" style="height:460px">
+          <div class="mv-ph"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span class="mv-ph-label">fotos/galeria-6.jpg</span><span class="mv-ph-size">1400×900px</span></div>
+          <img loading="lazy" class="mv-real" src="fotos/galeria-6.jpg" alt="Baño principal" />
+        </div>
+        <div class="mv-slide-caption">
+          <div class="mv-slide-title">Baño Principal</div>
+          <div class="mv-slide-desc">Un baño pensado como spa privado. Acabados en materiales de alta calidad, ducha amplia y una atmósfera que invita al descanso total.</div>
+        </div>
+      </div>
+
+      <div class="mv-gallery-slide">
+        <div class="mv-img-wrap" style="height:460px">
+          <div class="mv-ph"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span class="mv-ph-label">fotos/galeria-7.jpg</span><span class="mv-ph-size">1400×900px</span></div>
+          <img loading="lazy" class="mv-real" src="fotos/galeria-7.jpg" alt="Walking closet" />
+        </div>
+        <div class="mv-slide-caption">
+          <div class="mv-slide-title">Walking Closet Principal</div>
+          <div class="mv-slide-desc">Espacio, orden y elegancia. El closet de la suite principal está diseñado con la capacidad y los detalles que exige un hogar de este nivel.</div>
+        </div>
+      </div>
+
+      <div class="mv-gallery-slide">
+        <div class="mv-img-wrap" style="height:460px">
+          <div class="mv-ph"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span class="mv-ph-label">fotos/galeria-8.jpg</span><span class="mv-ph-size">1400×900px</span></div>
+          <img loading="lazy" class="mv-real" src="fotos/galeria-8.jpg" alt="Comedor con vista al lago" />
+        </div>
+        <div class="mv-slide-caption">
+          <div class="mv-slide-title">Comedor con Vista al Lago</div>
+          <div class="mv-slide-desc">Cada comida con el lago de fondo. Este espacio une gastronomía y paisaje en una experiencia que solo esta propiedad puede ofrecer en Cerritos Malabar.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="mv-gallery-ctrl">
+    <button class="mv-gal-btn" id="gal-prev" disabled aria-label="Anterior">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button class="mv-gal-btn" id="gal-next" aria-label="Siguiente">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+    <span class="mv-gal-count" id="gal-count">
+      01 <span style="color:#8A887E;font-size:0.8em">/ 08</span>
+    </span>
+  </div>
+
+  <div class="mv-thumbs" id="mv-thumbs"></div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     TOUR 360
+══════════════════════════════════════════════════════════════════════════ -->
+<section class="mv-tour" id="tour">
+  <div class="mv-tour-inner mv-reveal">
+    <p class="mv-stats-eyebrow">Recorre cada espacio</p>
+    <h2 class="mv-tour-title">Tour Virtual <em>360°</em></h2>
+    <p class="mv-tour-sub">Explora la propiedad completa desde cualquier lugar — sala, suite máster, piscina, terraza y más.</p>
+    <a href="/tour/" target="_blank" rel="noopener noreferrer" class="mv-btn-dark mv-tour-btn">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/></svg>
+      Iniciar Tour 360°
+    </a>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     STATS
+══════════════════════════════════════════════════════════════════════════ -->
+<section class="mv-stats" id="mv-stats">
+  <div class="mv-stats-hd mv-reveal">
+    <p class="mv-stats-eyebrow">Datos que respaldan la inversión</p>
+    <h2 class="mv-stats-title">Los números <em>hablan</em></h2>
+  </div>
+  <div class="mv-stats-grid">
+    <div class="mv-stat">
+      <div class="mv-stat-num" id="cnt-val">0%</div>
+      <div class="mv-stat-lbl">Valorización anual<br>promedio en Cerritos</div>
+    </div>
+    <div class="mv-stat">
+      <div class="mv-stat-num" id="cnt-min">0 min</div>
+      <div class="mv-stat-lbl">Aeropuerto Internacional<br>Matecaña</div>
+    </div>
+    <div class="mv-stat">
+      <div class="mv-stat-num" id="cnt-m2">0 m²</div>
+      <div class="mv-stat-lbl">Lote privado con<br>jardines y piscina</div>
+    </div>
+    <div class="mv-stat">
+      <div class="mv-stat-num">#1</div>
+      <div class="mv-stat-lbl">Sector más exclusivo<br>del Eje Cafetero</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     UBICACIÓN
+══════════════════════════════════════════════════════════════════════════ -->
+<section id="ubicacion" class="mv-location">
+  <div class="mv-loc-grid">
+    <div class="mv-reveal from-left">
+      <p class="mv-eyebrow">Ubicación privilegiada</p>
+      <h2 class="mv-loc-sh">Cerritos Malabar,<br><em>Pereira</em></h2>
+      <p class="mv-loc-desc">
+        Cerritos es el sector campestre más codiciado de Pereira y de todo el Eje Cafetero.
+        Malabar es la joya de Cerritos: conjuntos cerrados de alta seguridad, lotes amplios,
+        vegetación exuberante y vistas privilegiadas al lago. Una dirección que se pronuncia
+        con distinción y que concentra a las familias de mayor poder adquisitivo de la región.
+      </p>
+      <div>
+        <div class="mv-dist-row"><span class="mv-dist-place">Aeropuerto Internacional Matecaña</span><span class="mv-dist-time">15 min</span></div>
+        <div class="mv-dist-row"><span class="mv-dist-place">Club Campestre de Pereira</span><span class="mv-dist-time">10 min</span></div>
+        <div class="mv-dist-row"><span class="mv-dist-place">C.C. Parque Arboleda</span><span class="mv-dist-time">18 min</span></div>
+        <div class="mv-dist-row"><span class="mv-dist-place">Centro de Pereira</span><span class="mv-dist-time">22 min</span></div>
+        <div class="mv-dist-row"><span class="mv-dist-place">Ruta del Café — Patrimonio UNESCO</span><span class="mv-dist-time">35 min</span></div>
+        <div class="mv-dist-row"><span class="mv-dist-place">Armenia / Manizales</span><span class="mv-dist-time">1h – 1h 15</span></div>
+      </div>
+    </div>
+    <div class="mv-reveal from-right">
+      <iframe
+        src="https://maps.google.com/maps?q=4.8170199,-75.8145934&z=14&output=embed"
+        width="100%"
+        height="460"
+        style="border:0;display:block;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Cerritos Malabar, Pereira">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     FOR INTERNATIONAL BUYERS
+══════════════════════════════════════════════════════════════════════════ -->
+<section id="inversion" class="mv-intl">
+  <div class="mv-intl-hd mv-reveal">
+    <p class="mv-eyebrow">For International Buyers</p>
+    <h2 class="mv-intl-title">Why Colombia.<br><em>Why Now.</em></h2>
+    <p class="mv-intl-sub">
+      Colombia's Eje Cafetero is one of Latin America's most compelling luxury real estate markets.
+      Strong fundamentals, UNESCO-recognized natural beauty, and favorable exchange rates make
+      this an exceptional window for international investors and diaspora buyers.
+    </p>
+  </div>
+
+  <div class="mv-intl-grid">
+    <div class="mv-intl-card mv-reveal" style="transition-delay:0ms">
+      <div class="mv-intl-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+      <h3 class="mv-intl-card-title">Investor Visa Eligibility</h3>
+      <p class="mv-intl-card-text">Colombia's Visa M (Investor category) allows foreign nationals who invest a minimum of 650 SMMLV (~USD $170,000) in real estate to obtain a renewable Colombian visa — a clear path to residency in one of South America's most vibrant economies.</p>
+    </div>
+    <div class="mv-intl-card mv-reveal" style="transition-delay:130ms">
+      <div class="mv-intl-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+      <h3 class="mv-intl-card-title">UNESCO Coffee Region</h3>
+      <p class="mv-intl-card-text">The Coffee Cultural Landscape of Colombia is a UNESCO World Heritage Site surrounding Pereira. It draws a growing international audience of experiential travelers and investors seeking authentic cultural destinations with world-class connectivity.</p>
+    </div>
+    <div class="mv-intl-card mv-reveal" style="transition-delay:260ms">
+      <div class="mv-intl-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+      <h3 class="mv-intl-card-title">USD Exchange Advantage</h3>
+      <p class="mv-intl-card-text">With the COP/USD exchange currently favorable for dollar-holders, at ~$4,100 COP per USD this property represents exceptional value compared to equivalent luxury real estate in Miami, Medellín's El Poblado, or Panama City — with 12%+ annual appreciation.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     CTA FINAL
+══════════════════════════════════════════════════════════════════════════ -->
+<section class="mv-cta-final">
+  <p class="mv-cta-eyebrow mv-reveal">Vista exclusiva al lago · Cerritos Malabar · Precio negociable</p>
+  <h2 class="mv-cta-title mv-reveal" style="transition-delay:100ms">
+    Agende su<br>
+    <em>Visita Privada</em>
+  </h2>
+  <p class="mv-cta-sub mv-reveal" style="transition-delay:200ms">
+    Visitas con cita previa · Propietario directo · Sin intermediarios
+  </p>
+  <a href="https://wa.me/573217664826?text=Hola%2C%20me%20interesa%20la%20casa%20con%20vista%20al%20lago%20en%20Cerritos%20Malabar"
+     target="_blank" rel="noopener noreferrer" class="mv-wa-btn">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.127.557 4.127 1.529 5.863L.073 23.927l6.263-1.438A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.86 0-3.604-.5-5.106-1.373l-.367-.216-3.714.852.868-3.614-.237-.383A9.958 9.958 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+    Contactar por WhatsApp
+  </a>
+  <p class="mv-wa-note">+57 321 766 4826 &nbsp;·&nbsp; Respuesta inmediata &nbsp;·&nbsp; Mensaje prellenado</p>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════════════════════════════════ -->
+<footer class="mv-footer">
+  <div class="mv-footer-top">
+    <div>
+      <div class="mv-footer-brand">Malabar Vista</div>
+      <div class="mv-footer-tagline">Casa Campestre de Lujo · Cerritos Malabar, Pereira</div>
+    </div>
+    <div class="mv-footer-links">
+      <a href="https://wa.me/573217664826?text=Hola%2C%20me%20interesa%20la%20casa%20con%20vista%20al%20lago%20en%20Cerritos%20Malabar"
+         target="_blank" rel="noopener noreferrer">+57 321 766 4826 (WhatsApp)</a>
+      <a href="tel:+573217664826">Llamar al propietario</a>
+      <span class="mv-footer-addr">Conjunto Malabar · Cerritos · Pereira, Risaralda</span>
+    </div>
+  </div>
+  <div class="mv-footer-bottom">
+    <p class="mv-footer-legal">© <span id="mv-year"></span> · Venta directa por propietario · Todos los derechos reservados</p>
+    <p class="mv-footer-legal">Precio en COP · Sujeto a negociación · Visitas con cita previa</p>
+  </div>
+</footer>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     LIGHTBOX
+══════════════════════════════════════════════════════════════════════════ -->
+<div class="mv-lb" id="mv-lb" role="dialog" aria-modal="true" aria-label="Ver imagen">
+  <button class="mv-lb-close" id="mv-lb-close" aria-label="Cerrar">&#x2715;</button>
+  <button class="mv-lb-arrow mv-lb-prev" id="mv-lb-prev" aria-label="Anterior">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+  </button>
+  <img class="mv-lb-img" id="mv-lb-img" src="" alt="" />
+  <video class="mv-lb-video" id="mv-lb-video" controls playsinline></video>
+  <button class="mv-lb-arrow mv-lb-next" id="mv-lb-next" aria-label="Siguiente">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>
+  <div class="mv-lb-caption">
+    <div class="mv-lb-cap-title" id="mv-lb-title"></div>
+    <div class="mv-lb-cap-num"   id="mv-lb-num"></div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     JAVASCRIPT (sin cambios de lógica)
+══════════════════════════════════════════════════════════════════════════ -->
+<script>
+'use strict';
+
+/* ── Año en footer ─────────────────────────────────────────────────────────── */
+document.getElementById('mv-year').textContent = new Date().getFullYear();
+
+/* ── Imágenes galería/features: fade-in al cargar ──────────────────────────── */
+document.querySelectorAll('img.mv-real').forEach(function(img) {
+  if (img.complete && img.naturalWidth > 0) { img.classList.add('loaded'); }
+  else {
+    img.addEventListener('load',  function() { img.classList.add('loaded'); });
+    img.addEventListener('error', function() { img.style.display = 'none'; });
+  }
+});
+
+/* ── Videos del hero: ocultar placeholder cuando el video carga ────────────── */
+['vid-dia', 'vid-noche'].forEach(function(id) {
+  var vid = document.getElementById(id);
+  var phId = id === 'vid-dia' ? 'ph-dia' : 'ph-noche';
+  var ph  = document.getElementById(phId);
+  if (!vid || !ph) return;
+  vid.addEventListener('canplay', function() { ph.style.display = 'none'; }, { once: true });
+  // Si el video ya está listo (caché)
+  if (vid.readyState >= 3) ph.style.display = 'none';
+});
+
+/* ════════════════════════════════════════════════════════════════════════════
+   HERO — transición día→noche por scroll
+   El .mv-hero-outer mide 220vh. El .mv-hero es sticky (100vh).
+   A medida que el usuario scrollea dentro de los 220vh, calculamos el
+   progreso (0 = día puro, 1 = noche pura) y lo aplicamos a la opacidad
+   de la capa de noche.
+════════════════════════════════════════════════════════════════════════════ */
+var heroOuter   = document.getElementById('mv-hero-outer');
+var layerNoche  = document.getElementById('hero-noche');
+var dnFill      = document.getElementById('mv-dn-fill');
+var dnLabel     = document.getElementById('mv-dn-label');
+var nav         = document.getElementById('mv-nav');
+var nocheLoaded = false;  // carga el video noche solo cuando el usuario scrollea
+
+function updateHero() {
+  if (!heroOuter || !layerNoche) return;
+
+  var scrollY     = window.scrollY;
+  var outerH      = heroOuter.offsetHeight;   // 220vh en px
+  var viewH       = window.innerHeight;        // 100vh en px
+  var scrollRange = outerH - viewH;           // cuánto scrollea dentro del sticky
+
+  // Disparar carga del video noche en el primer scroll
+  if (!nocheLoaded && scrollY > 10) {
+    nocheLoaded = true;
+    var nocheVid = document.getElementById('vid-noche');
+    if (nocheVid) { nocheVid.load(); nocheVid.play().catch(function(){}); }
+  }
+
+  // progress: 0 cuando scrollY=0, 1 cuando el hero está a punto de irse
+  var raw      = scrollY / scrollRange;
+  var start    = 0.15;
+  var progress = Math.max(0, Math.min(1, (raw - start) / (1 - start)));
+
+  layerNoche.style.opacity = progress.toFixed(3);
+
+  if (dnFill)  dnFill.style.width    = (progress * 100).toFixed(1) + '%';
+  if (dnLabel) dnLabel.textContent   = progress > 0.5 ? 'Noche' : 'Día';
+
+  var heroGone = scrollY > outerH - viewH * 0.1;
+  nav.classList.toggle('is-scrolled', heroGone);
+}
+
+window.addEventListener('scroll', updateHero, { passive: true });
+updateHero(); // llamada inicial
+
+/* ════════════════════════════════════════════════════════════════════════════
+   SCROLL REVEAL — IntersectionObserver en todos los .mv-reveal
+════════════════════════════════════════════════════════════════════════════ */
+var revealObs = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('is-visible');
+      revealObs.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.mv-reveal').forEach(function(el) {
+  revealObs.observe(el);
+});
+
+/* ════════════════════════════════════════════════════════════════════════════
+   GALERÍA — carrusel con translateX en píxeles
+════════════════════════════════════════════════════════════════════════════ */
+var currentSlide = 0;
+var track        = document.getElementById('mv-gallery-track');
+var prevBtn      = document.getElementById('gal-prev');
+var nextBtn      = document.getElementById('gal-next');
+var countEl      = document.getElementById('gal-count');
+var thumbsEl     = document.getElementById('mv-thumbs');
+var totalSlides  = track ? track.querySelectorAll('.mv-gallery-slide').length : 0;
+
+(function buildThumbs() {
+  if (!thumbsEl || !track) return;
+  track.querySelectorAll('.mv-gallery-slide').forEach(function(slide, i) {
+    var t    = document.createElement('div');
+    t.className = 'mv-thumb' + (i === 0 ? ' is-active' : '');
+    var img  = slide.querySelector('img.mv-real');
+    if (img) {
+      var tImg = document.createElement('img');
+      tImg.src = img.src;
+      tImg.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
+      tImg.addEventListener('error', function() { tImg.style.display = 'none'; });
+      t.appendChild(tImg);
+    } else {
+      var ph = document.createElement('div');
+      ph.style.cssText = 'width:100%;height:100%;background:#EDE8DC;';
+      t.appendChild(ph);
+    }
+    t.addEventListener('click', function() { goToSlide(i); });
+    thumbsEl.appendChild(t);
+  });
+}());
+
+function goToSlide(n) {
+  if (!track) return;
+  currentSlide = Math.max(0, Math.min(totalSlides - 1, n));
+  var slides = track.querySelectorAll('.mv-gallery-slide');
+  if (slides[0]) {
+    var w = slides[0].offsetWidth + 24;
+    track.style.transform = 'translateX(' + (-currentSlide * w) + 'px)';
+  }
+  countEl.innerHTML =
+    String(currentSlide + 1).padStart(2, '0') +
+    ' <span style="color:#8A887E;font-size:0.8em">/ ' +
+    String(totalSlides).padStart(2, '0') + '</span>';
+  thumbsEl.querySelectorAll('.mv-thumb').forEach(function(t, i) {
+    t.classList.toggle('is-active', i === currentSlide);
+  });
+  prevBtn.disabled = currentSlide === 0;
+  nextBtn.disabled = currentSlide === totalSlides - 1;
+}
+
+prevBtn.addEventListener('click', function() { goToSlide(currentSlide - 1); });
+nextBtn.addEventListener('click', function() { goToSlide(currentSlide + 1); });
+window.addEventListener('resize', function() { goToSlide(currentSlide); updateHero(); }, { passive: true });
+
+/* ── Galería + lightbox: navegación con ← → en desktop ─────────────────────
+   · Si el lightbox está cerrado → mueve el carrusel de galería
+     Al llegar al último slide abre el lightbox en el primer video (índice 0)
+   · Si el lightbox está abierto → el handler del lightbox ya lo maneja
+─────────────────────────────────────────────────────────────────────────── */
+document.addEventListener('keydown', function(e) {
+  if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+  var lb = document.getElementById('mv-lb');
+  if (lb && lb.classList.contains('is-open')) return; // el lightbox tiene prioridad
+  if (e.key === 'ArrowLeft') {
+    goToSlide(currentSlide - 1);
+  } else {
+    if (currentSlide < totalSlides - 1) {
+      goToSlide(currentSlide + 1);
+    } else {
+      // Último slide → abrir lightbox en el primer video
+      if (window.lbOpenAt) window.lbOpenAt(0);
+    }
+  }
+});
+
+/* ════════════════════════════════════════════════════════════════════════════
+   STATS — contadores animados
+════════════════════════════════════════════════════════════════════════════ */
+var statsSection  = document.getElementById('mv-stats');
+var cntVal        = document.getElementById('cnt-val');
+var cntMin        = document.getElementById('cnt-min');
+var cntM2         = document.getElementById('cnt-m2');
+var statsAnimated = false;
+
+new IntersectionObserver(function(entries, obs) {
+  entries.forEach(function(entry) {
+    if (!entry.isIntersecting || statsAnimated) return;
+    statsAnimated = true;
+    obs.disconnect();
+    document.querySelectorAll('.mv-stat').forEach(function(s) { s.classList.add('is-visible'); });
+    var targets = { val: 12, min: 15, m2: 2000 };
+    var dur     = 1800;
+    var start   = Date.now();
+    (function tick() {
+      var p    = Math.min((Date.now() - start) / dur, 1);
+      var ease = 1 - Math.pow(1 - p, 3);
+      cntVal.textContent = Math.round(targets.val * ease) + '%';
+      cntMin.textContent = Math.round(targets.min * ease) + ' min';
+      cntM2.textContent  = Math.round(targets.m2  * ease).toLocaleString('es-CO') + ' m²';
+      if (p < 1) requestAnimationFrame(tick);
+    }());
+  });
+}, { threshold: 0.3 }).observe(statsSection);
+
+/* ════════════════════════════════════════════════════════════════════════════
+   LIGHTBOX UNIFICADO — Videos drone + fotos feat + galería, todo navegable
+   Orden: [0] Video Día · [1] Video Noche · feat cards · slides de galería
+════════════════════════════════════════════════════════════════════════════ */
+(function() {
+  var lb      = document.getElementById('mv-lb');
+  var lbImg   = document.getElementById('mv-lb-img');
+  var lbVideo = document.getElementById('mv-lb-video');
+  var lbClose = document.getElementById('mv-lb-close');
+  var lbPrev  = document.getElementById('mv-lb-prev');
+  var lbNext  = document.getElementById('mv-lb-next');
+  var lbTitle = document.getElementById('mv-lb-title');
+  var lbNum   = document.getElementById('mv-lb-num');
+  if (!lb) return;
+
+  var items   = [];   // { type:'video'|'image', src, alt, title }
+  var current = 0;
+
+  /* ── Agregar videos de drone (índices 0 y 1) ──────────────────────────── */
+  items.push({ type: 'video', src: 'fotos/hero-dia.mp4',   title: '1 · Vista Diurna — Drone' });
+  items.push({ type: 'video', src: 'fotos/hero-noche.mp4', title: '2 · Vista Nocturna — Drone' });
+
+  /* ── Feat cards (el overlay bloquea el img → click en la tarjeta) ──────── */
+  document.querySelectorAll('.mv-feat-card').forEach(function(card) {
+    var img    = card.querySelector('img.mv-real');
+    if (!img) return;
+    var nameEl = card.querySelector('.mv-feat-name');
+    var title  = nameEl ? nameEl.textContent.trim() : '';
+    var idx    = items.length;
+    items.push({ type: 'image', src: img.src, alt: img.alt || title, title: title });
+    card.addEventListener('click', function() { openAt(idx); });
+  });
+
+  /* ── Galería (click en el contenedor de imagen) ─────────────────────────── */
+  document.querySelectorAll('.mv-gallery-slide').forEach(function(slide) {
+    var img     = slide.querySelector('img.mv-real');
+    if (!img) return;
+    var titleEl = slide.querySelector('.mv-slide-title');
+    var title   = titleEl ? titleEl.textContent.trim() : '';
+    var idx     = items.length;
+    items.push({ type: 'image', src: img.src, alt: img.alt || title, title: title });
+    var wrap    = slide.querySelector('.mv-img-wrap') || img;
+    wrap.style.cursor = 'zoom-in';
+    wrap.addEventListener('click', function() { openAt(0); });
+  });
+
+  /* ── render: muestra imagen o video según el tipo del item ─────────────── */
+  function render() {
+    var item = items[current];
+    if (!item) return;
+
+    var isVid = item.type === 'video';
+
+    // Pausar video anterior si pasamos a imagen
+    if (!isVid && lbVideo && !lbVideo.paused) { lbVideo.pause(); lbVideo.src = ''; }
+
+    lb.classList.toggle('is-video', isVid);
+
+    if (isVid) {
+      lbVideo.src = item.src;
+      lbVideo.play().catch(function(){});
+    } else {
+      if (lbVideo) { lbVideo.pause(); lbVideo.src = ''; }
+      lbImg.src = item.src;
+      lbImg.alt = item.alt || '';
+    }
+
+    if (lbTitle) lbTitle.textContent = item.title || '';
+    if (lbNum)   lbNum.textContent   = (current + 1) + ' de ' + items.length;
+    lbPrev.disabled = current === 0;
+    lbNext.disabled = current === items.length - 1;
+  }
+
+  function openAt(idx) {
+    current = Math.max(0, Math.min(items.length - 1, idx));
+    render();
+    lb.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+  window.lbOpenAt = openAt;  // exponer para el botón de video
+
+  function close() {
+    if (lbVideo) { lbVideo.pause(); lbVideo.src = ''; }
+    lb.classList.remove('is-open', 'is-video');
+    document.body.style.overflow = '';
+    if (lbImg) lbImg.src = '';
+  }
+
+  /* ── Controles ─────────────────────────────────────────────────────────── */
+  lbClose.addEventListener('click', close);
+  lb.addEventListener('click', function(e) { if (e.target === lb) close(); });
+  lbPrev.addEventListener('click', function() { if (current > 0) { current--; render(); } });
+  lbNext.addEventListener('click', function() { if (current < items.length - 1) { current++; render(); } });
+
+  document.addEventListener('keydown', function(e) {
+    if (!lb.classList.contains('is-open')) return;
+    if (e.key === 'Escape')    close();
+    if (e.key === 'ArrowLeft'  && current > 0)               { current--; render(); }
+    if (e.key === 'ArrowRight' && current < items.length - 1) { current++; render(); }
+  });
+
+  /* ── Swipe (móvil) — desactivado sobre el video para no romper controles ── */
+  var touchX = 0, touchY = 0;
+  lb.addEventListener('touchstart', function(e) {
+    touchX = e.touches[0].clientX;
+    touchY = e.touches[0].clientY;
+  }, { passive: true });
+  lb.addEventListener('touchend', function(e) {
+    if (items[current] && items[current].type === 'video') return;
+    var dx = e.changedTouches[0].clientX - touchX;
+    var dy = e.changedTouches[0].clientY - touchY;
+    if (Math.abs(dy) > Math.abs(dx) || Math.abs(dx) < 40) return; // solo swipe horizontal
+    if (dx < 0 && current < items.length - 1) { current++; render(); }
+    if (dx > 0 && current > 0)                 { current--; render(); }
+  }, { passive: true });
+}());
+
+/* ── Hero: botón "Ver video" → abre el lightbox en el video activo ─────────── */
+(function() {
+  var btn = document.getElementById('mv-hero-vid-btn');
+  if (!btn) return;
+  btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    // 0 = video día, 1 = video noche — según cuál se está viendo
+    var op  = parseFloat(layerNoche ? layerNoche.style.opacity : 0) || 0;
+    var idx = op > 0.5 ? 1 : 0;
+    if (window.lbOpenAt) window.lbOpenAt(idx);
+  });
+}());
+</script>
+
+</body>
+</html>

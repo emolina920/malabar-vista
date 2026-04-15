@@ -1,0 +1,80 @@
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  FOTOS — Malabar Vista
+  Casa Campestre de Lujo · Cerritos Malabar, Pereira
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Pon aquí tus fotos con EXACTAMENTE estos nombres.
+La página las cargará automáticamente al abrir index.html.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  FOTOS HERO — TRANSICIÓN DÍA / NOCHE (efecto automático)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  hero-dia.mp4
+  → Video de drone de DÍA — corre en loop, se ve primero
+  → Tamaño recomendado: 1920×1080px, formato MP4 (H.264)
+  → Duración: 10-30 seg (se repite en loop automáticamente)
+  → Tip: cielo azul, lago visible, movimiento suave de cámara
+
+  hero-noche.mp4
+  → Video de drone de NOCHE o atardecer — aparece al hacer scroll
+  → Mismo formato que el de día
+  → Tip: luces de la casa encendidas, reflejos en el lago, drones nocturnos
+
+  IMPORTANTE:
+  · Ambos videos deben ser del MISMO ángulo/encuadre para que la
+    transición de scroll se vea perfecta
+  · El video de noche empieza a aparecer cuando el usuario hace scroll,
+    y llega a ser 100% visible antes de que la pantalla pase al resto
+    de la página
+  · Si tienes los videos en otro formato (.mov, .avi), conviértelos a
+    .mp4 con HandBrake (gratis) o usando el convertidor de tu preferencia
+
+  TAMBIÉN PUEDES USAR .webm (mejor compresión):
+  · hero-dia.webm  (opcional, el navegador usa el más eficiente)
+  · hero-noche.webm
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  FOTOS DE CARACTERÍSTICAS (sección "Por qué esta casa...")
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  feat-1.jpg → Vista al lago desde la terraza (900 × 680 px)
+  feat-2.jpg → Interior: sala doble altura / ventanales (900 × 680 px)
+  feat-3.jpg → Piscina privada y jardines (900 × 680 px)
+  feat-4.jpg → Fachada exterior / conjunto Malabar (900 × 680 px)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  FOTOS DE GALERÍA (carrusel de 8 fotos)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  galeria-1.jpg → Vista al lago desde la terraza (1400 × 900 px)
+  galeria-2.jpg → Fachada principal / acceso (1400 × 900 px)
+  galeria-3.jpg → Piscina privada (1400 × 900 px)
+  galeria-4.jpg → Sala principal doble altura (1400 × 900 px)
+  galeria-5.jpg → Suite master con vista al lago (1400 × 900 px)
+  galeria-6.jpg → Cocina tipo gourmet (1400 × 900 px)
+  galeria-7.jpg → Terraza y zona exterior (1400 × 900 px)
+  galeria-8.jpg → Vista aérea del conjunto y lago (1600 × 1050 px)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  CONSEJOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  - Puedes usar .jpg o .png — solo asegúrate que el nombre sea igual
+  - Si la foto no aparece, revisa que el nombre sea exactamente igual
+    (sin mayúsculas, sin espacios, con guión - no guión bajo _)
+  - Para mejores resultados: fotos horizontales (landscape)
+  - La foto hero es la más importante — usa la mejor que tengas
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  CÓMO VER LA PÁGINA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  1. Abre la carpeta malabar-vista en el Explorador de archivos
+  2. Doble clic en index.html
+  3. Se abre en tu navegador — ¡listo!
+
+  Nota: necesitas conexión a internet la primera vez
+  (para cargar las fuentes Cormorant y Montserrat de Google)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
